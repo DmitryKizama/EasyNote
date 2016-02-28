@@ -3,4 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="signin">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_fire_missiles">Write new note</string>
+
 </resources>

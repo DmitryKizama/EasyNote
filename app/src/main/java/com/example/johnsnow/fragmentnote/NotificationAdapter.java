@@ -13,7 +13,6 @@ import java.util.List;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
     private List<String> notifications;
-
     private OnNotifClickListener listener;
 
     public interface OnNotifClickListener{
@@ -45,6 +44,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
         notifications.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void update(int position, String newText) {
+        if (position >= notifications.size()) {
+            return;
+        }
+        notifications.set(position, newText);
+        notifyItemChanged(position);
     }
 
     public void setOnNotifClickListener(OnNotifClickListener listener){

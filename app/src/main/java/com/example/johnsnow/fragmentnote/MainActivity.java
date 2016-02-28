@@ -62,6 +62,11 @@ public class MainActivity extends FragmentActivity implements NewEntryDialog.OnD
     }
 
     @Override
+    public void onUpdateText(int position, String newText) {
+        notifAdap.update(position, newText);
+    }
+
+    @Override
     public void onNotifLongClick(String word, int position) {
         longClickDialog.show(position);
     }

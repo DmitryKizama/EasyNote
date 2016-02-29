@@ -5,41 +5,38 @@ import android.content.Context;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.johnsnow.fragmentnote.R;
 
 public class LongClickDialog extends Dialog {
 
     private Button btnDelete, btnUpdate;
-    private EditText etUpdate;
     private int position;
 
     public interface OnDialogListener {
         void onDeleteText(int position);
 
-        void onUpdateText(int position, String newText);
+        void onUpdateText(int position);
     }
 
     private OnDialogListener listener;
 
     public LongClickDialog(Context context) {
         super(context);
-        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        getWindow().setBackgroundDrawableResource(android.R.color.holo_orange_light);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.changing_note_dialog);
         init();
     }
 
     private void init() {
-        etUpdate = (EditText) findViewById(R.id.etUpdate);
 
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onUpdateText(position, etUpdate.getText().toString());
+                    listener.onUpdateText(position);
                 }
                 LongClickDialog.this.cancel();
             }

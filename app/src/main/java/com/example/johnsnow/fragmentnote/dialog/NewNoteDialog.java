@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.example.johnsnow.fragmentnote.R;
 
-public class NewEntryDialog extends Dialog {
+public class NewNoteDialog extends Dialog {
 
 
     public interface OnDialogListener {
@@ -21,9 +21,9 @@ public class NewEntryDialog extends Dialog {
     private Button btnOk, btnCancel;
     private OnDialogListener listener;
 
-    public NewEntryDialog(Context context) {
+    public NewNoteDialog(Context context) {
         super(context);
-        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        getWindow().setBackgroundDrawableResource(android.R.color.holo_orange_light);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.alert_dialog);
         init();
@@ -39,7 +39,7 @@ public class NewEntryDialog extends Dialog {
                 if (listener != null) {
                     listener.onEditText(etWord.getText().toString());
                 }
-                NewEntryDialog.this.cancel();
+                NewNoteDialog.this.cancel();
             }
         });
 
@@ -47,7 +47,7 @@ public class NewEntryDialog extends Dialog {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewEntryDialog.this.cancel();
+                NewNoteDialog.this.cancel();
             }
         });
     }
@@ -63,7 +63,7 @@ public class NewEntryDialog extends Dialog {
     }
 
     public EditText getEditText(){
-        return etWord;
+        return (EditText) findViewById(R.id.etWord);
     }
 }
 

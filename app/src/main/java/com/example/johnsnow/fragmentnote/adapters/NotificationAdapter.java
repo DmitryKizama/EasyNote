@@ -2,6 +2,7 @@ package com.example.johnsnow.fragmentnote.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public boolean onLongClick(View v) {
                 if (listener != null) {
+                    Log.d("LongClick", "exist");    
                     listener.onNotifLongClick(notification, position);
                 }
                 return true;

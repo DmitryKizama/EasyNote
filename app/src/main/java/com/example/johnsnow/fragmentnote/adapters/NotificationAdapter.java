@@ -69,7 +69,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final String notification = notifications.get(position);
 
         holder.tv.setText(notification);
@@ -79,7 +79,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             public boolean onLongClick(View v) {
                 if (listener != null) {
                     Log.d("LongClick", "exist");    
-                    listener.onNotifLongClick(notification, position);
+                    listener.onNotifLongClick(notification, holder.getAdapterPosition());
                 }
                 return true;
             }

@@ -2,7 +2,6 @@ package com.example.johnsnow.fragmentnote.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private List<String> notifications;
     private OnNotifClickListener listener;
 
-    public interface OnNotifClickListener{
+    public interface OnNotifClickListener {
         void onNotifLongClick(String word, int position);
     }
 
@@ -36,17 +35,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         notifications = new ArrayList<>();
     }
 
-    public void addBottom(String word){
+    public void addBottom(String word) {
         notifications.add(word);
         notifyItemInserted(notifications.size() - 1);
     }
 
-    public void deleteElementAtPos(int position){
+    public void deleteElementAtPos(int position) {
         if (position >= notifications.size()) {
             return;
         }
         notifications.remove(position);
         notifyItemRemoved(position);
+        notifyItemMoved(position, position - 1);
     }
 
     public void update(int position, String newText) {
@@ -57,8 +57,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         notifyItemChanged(position);
     }
 
-    public void setOnNotifClickListener(OnNotifClickListener listener){
-            this.listener = listener;
+    public void setOnNotifClickListener(OnNotifClickListener listener) {
+        this.listener = listener;
     }
 
 
@@ -78,7 +78,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public boolean onLongClick(View v) {
                 if (listener != null) {
-                    Log.d("LongClick", "exist");    
                     listener.onNotifLongClick(notification, holder.getAdapterPosition());
                 }
                 return true;
@@ -89,7 +88,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public int getItemCount() {
-        if (notifications == null){
+        if (notifications == null) {
             return 0;
         }
 

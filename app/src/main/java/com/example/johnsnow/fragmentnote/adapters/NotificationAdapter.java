@@ -46,7 +46,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
         notifications.remove(position);
         notifyItemRemoved(position);
-        notifyItemMoved(position, position - 1);
     }
 
     public void update(int position, String newText) {
@@ -78,7 +77,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public boolean onLongClick(View v) {
                 if (listener != null) {
-//                    listener.onNotifLongClick(notification, holder.getAdapterPosition());
+                    listener.onNotifLongClick(notification, holder.getAdapterPosition());
                 }
                 return true;
             }

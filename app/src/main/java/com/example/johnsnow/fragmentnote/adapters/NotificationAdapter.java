@@ -77,7 +77,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public boolean onLongClick(View v) {
                 if (listener != null) {
-                    listener.onNotifLongClick(notification, holder.getAdapterPosition());
+                    listener.onNotifLongClick(notification, holder.getAdapterPosition());//holder.getAdapterPosition - give back position
                 }
                 return true;
             }

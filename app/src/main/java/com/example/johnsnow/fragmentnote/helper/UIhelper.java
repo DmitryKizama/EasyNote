@@ -34,7 +34,8 @@ public class UIhelper {
             InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (inputManager != null) {
                 view.requestFocus();
-                inputManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+                activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//                inputManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
             }
         }
     }

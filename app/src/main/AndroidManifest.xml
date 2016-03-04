@@ -21,7 +21,8 @@
             android:name=".activity.AddActivity"
             android:label="@string/app_name">
             <intent-filter>
-
+                <action android:name="activity.AddNote" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

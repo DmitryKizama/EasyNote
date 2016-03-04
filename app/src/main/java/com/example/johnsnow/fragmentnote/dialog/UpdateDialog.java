@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.johnsnow.fragmentnote.R;
-import com.example.johnsnow.fragmentnote.helper.UIhelper;
 
 
 public class UpdateDialog extends Dialog {

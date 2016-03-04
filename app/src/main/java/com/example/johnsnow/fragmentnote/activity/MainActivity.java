@@ -1,5 +1,6 @@
 package com.example.johnsnow.fragmentnote.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,19 +11,21 @@ import android.widget.Button;
 import com.example.johnsnow.fragmentnote.R;
 import com.example.johnsnow.fragmentnote.adapters.NotificationAdapter;
 import com.example.johnsnow.fragmentnote.dialog.LongClickDialog;
-import com.example.johnsnow.fragmentnote.dialog.NewNoteDialog;
 import com.example.johnsnow.fragmentnote.dialog.UpdateDialog;
 import com.example.johnsnow.fragmentnote.helper.UIhelper;
 
-public class MainActivity extends FragmentActivity implements NewNoteDialog.OnDialogListener,
-        LongClickDialog.OnDialogListener, NotificationAdapter.OnNotifClickListener, UpdateDialog.OnDialogListener {
+public class MainActivity extends FragmentActivity implements
+        LongClickDialog.OnDialogListener, NotificationAdapter.OnNotifClickListener, UpdateDialog.OnDialogListener
+// NewNoteDialog.OnDialogListener doesn't needed any more, because of AddActivity
+{
 
     private Button add;
-    private NewNoteDialog dialog;
+    //    private NewNoteDialog dialog;
     private RecyclerView rvNotif;
     private NotificationAdapter notifAdap;
     private LongClickDialog longClickDialog;
     private UpdateDialog updateDialog;
+    private static final int REQUES_CODE = 1;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,8 @@ public class MainActivity extends FragmentActivity implements NewNoteDialog.OnDi
 
         notifAdap.setOnNotifClickListener(this);
 
-        dialog = new NewNoteDialog(this);//work when pressed "add note" button
-        dialog.setListener(this);
+//        dialog = new NewNoteDialog(this);//work when pressed "add note" button
+//        dialog.setListener(this);
 
         updateDialog = new UpdateDialog(this);//set update dialog listener, work when button update pressed
         updateDialog.setListener(this);
@@ -51,8 +54,10 @@ public class MainActivity extends FragmentActivity implements NewNoteDialog.OnDi
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
-                UIhelper.showKeyboardForDialog(MainActivity.this, dialog.getEditText(), dialog);
+                Intent addNote = new Intent(MainActivity.this, AddActivity.class);
+                startActivityForResult(addNote, REQUES_CODE);
+//                dialog.show();
+//                UIhelper.showKeyboardForDialog(MainActivity.this, dialog.getEditText(), dialog);
             }
         });
 
@@ -60,8 +65,16 @@ public class MainActivity extends FragmentActivity implements NewNoteDialog.OnDi
     }
 
     @Override
-    public void onEditText(String word) {
-        notifAdap.addBottom(word);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {
+            return;
+        }
+        if (requestCode == REQUES_CODE) {
+            if (resultCode == RESULT_OK) {
+                String note = data.getStringExtra("note");
+                notifAdap.addBottom(note);
+            }
+        }
     }
 
     @Override
@@ -71,9 +84,11 @@ public class MainActivity extends FragmentActivity implements NewNoteDialog.OnDi
 
     @Override
     public void onUpdateText(int position) {
-        updateDialog.show();
-        UIhelper.showKeyboardForDialog(MainActivity.this, updateDialog.getEditText(), updateDialog);
-        updateDialog.setPosition(position);
+        Intent addNote = new Intent(MainActivity.this, AddActivity.class);
+        startActivityForResult(addNote, REQUES_CODE);
+//        updateDialog.show();
+//        UIhelper.showKeyboardForDialog(MainActivity.this, updateDialog.getEditText(), updateDialog);
+//        updateDialog.setPosition(position);
     }
 
     @Override

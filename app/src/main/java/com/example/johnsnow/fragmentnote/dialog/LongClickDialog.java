@@ -16,7 +16,6 @@ public class LongClickDialog extends Dialog {
 
     public interface OnDialogListener {
         void onDeleteText(int position);
-
         void onUpdateText(int position);
     }
 

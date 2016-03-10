@@ -12,12 +12,16 @@ import com.example.johnsnow.fragmentnote.R;
 import com.example.johnsnow.fragmentnote.adapters.NotificationAdapter;
 import com.example.johnsnow.fragmentnote.dialog.LongClickDialog;
 import com.example.johnsnow.fragmentnote.dialog.UpdateDialog;
-import com.example.johnsnow.fragmentnote.helper.UIhelper;
+import com.example.johnsnow.fragmentnote.helper.Constant;
 
 public class MainActivity extends FragmentActivity implements
         LongClickDialog.OnDialogListener, NotificationAdapter.OnNotifClickListener, UpdateDialog.OnDialogListener
 // NewNoteDialog.OnDialogListener doesn't needed any more, because of AddActivity
 {
+
+    public interface OnUpdateNote {
+        void onUpdateNote (String word, int position);
+    }
 
     private Button add;
     //    private NewNoteDialog dialog;
@@ -25,7 +29,6 @@ public class MainActivity extends FragmentActivity implements
     private NotificationAdapter notifAdap;
     private LongClickDialog longClickDialog;
     private UpdateDialog updateDialog;
-    private static final int REQUES_CODE = 1;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,7 @@ public class MainActivity extends FragmentActivity implements
             @Override
             public void onClick(View v) {
                 Intent addNote = new Intent(MainActivity.this, AddActivity.class);
-                startActivityForResult(addNote, REQUES_CODE); 
+                startActivityForResult(addNote, Constant.REQUES_CODE_ADD_NOTE);
 //                dialog.show();
 //                UIhelper.showKeyboardForDialog(MainActivity.this, dialog.getEditText(), dialog);
             }
@@ -69,10 +72,17 @@ public class MainActivity extends FragmentActivity implements
         if (data == null) {
             return;
         }
-        if (requestCode == REQUES_CODE) {
-            if (resultCode == RESULT_OK) {
-                String note = data.getStringExtra("note");
+        if (resultCode == RESULT_OK) {
+//            String note = data.getStringExtra(Constant.NOTE);
+            if (requestCode == Constant.REQUES_CODE_ADD_NOTE) {
+                String note = data.getStringExtra(Constant.NOTE);
                 notifAdap.addBottom(note);
+
+            }
+            if (requestCode == Constant.REQUES_CODE_FOR_UPDATE) {
+                String note = data.getStringExtra("WORD");
+                int position = data.getIntExtra("POS", 0);
+                notifAdap.update(position, note);
             }
         }
     }
@@ -83,9 +93,11 @@ public class MainActivity extends FragmentActivity implements
     }
 
     @Override
-    public void onUpdateText(int position) {
+    public void onUpdateText(String word, int position) {
         Intent addNote = new Intent(MainActivity.this, AddActivity.class);
-        startActivityForResult(addNote, REQUES_CODE);
+        addNote.putExtra("POS", position);
+        addNote.putExtra("WORD", word);
+        startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
 //        updateDialog.show();
 //        UIhelper.showKeyboardForDialog(MainActivity.this, updateDialog.getEditText(), updateDialog);
 //        updateDialog.setPosition(position);
@@ -93,7 +105,7 @@ public class MainActivity extends FragmentActivity implements
 
     @Override
     public void onNotifLongClick(String word, int position) {
-        longClickDialog.show(position);
+        longClickDialog.show(word,position);
     }
 
     @Override

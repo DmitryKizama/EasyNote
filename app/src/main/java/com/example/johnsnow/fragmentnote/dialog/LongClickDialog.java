@@ -13,10 +13,11 @@ public class LongClickDialog extends Dialog {
 
     private Button btnDelete, btnUpdate;
     private int position;
+    private String word;
 
     public interface OnDialogListener {
         void onDeleteText(int position);
-        void onUpdateText(int position);
+        void onUpdateText(String word, int position);
     }
 
     private OnDialogListener listener;
@@ -36,7 +37,7 @@ public class LongClickDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onUpdateText(position);
+                    listener.onUpdateText(word, position);
                 }
                 LongClickDialog.this.cancel();
             }
@@ -54,9 +55,10 @@ public class LongClickDialog extends Dialog {
         });
     }
 
-    public void show(int position) {
+    public void show(String word, int position) {
         super.show();
         this.position = position;
+        this.word = word;
     }
 
     public void setListener(OnDialogListener listener) {

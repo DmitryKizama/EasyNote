@@ -55,7 +55,7 @@ public class MainActivity extends FragmentActivity implements
             @Override
             public void onClick(View v) {
                 Intent addNote = new Intent(MainActivity.this, AddActivity.class);
-                startActivityForResult(addNote, REQUES_CODE); //start activity
+                startActivityForResult(addNote, REQUES_CODE); 
 //                dialog.show();
 //                UIhelper.showKeyboardForDialog(MainActivity.this, dialog.getEditText(), dialog);
             }

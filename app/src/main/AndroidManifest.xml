@@ -7,8 +7,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name="com.activeandroid.app.Application"
         android:theme="@style/AppTheme">
-        
+
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name">
@@ -33,6 +34,9 @@
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="5" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.myapp.model.Item, com.myapp.model.Category" />
 
     </application>
 

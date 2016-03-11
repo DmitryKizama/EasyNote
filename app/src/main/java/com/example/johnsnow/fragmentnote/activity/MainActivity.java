@@ -13,6 +13,7 @@ import com.example.johnsnow.fragmentnote.adapters.NotificationAdapter;
 import com.example.johnsnow.fragmentnote.dialog.LongClickDialog;
 import com.example.johnsnow.fragmentnote.dialog.UpdateDialog;
 import com.example.johnsnow.fragmentnote.helper.Constant;
+import com.example.johnsnow.fragmentnote.model.Note;
 
 public class MainActivity extends FragmentActivity implements
         LongClickDialog.OnDialogListener, NotificationAdapter.OnNotifClickListener, UpdateDialog.OnDialogListener
@@ -53,6 +54,8 @@ public class MainActivity extends FragmentActivity implements
         longClickDialog = new LongClickDialog(this);//when long pressed on word
         longClickDialog.setListener(this);
 
+        Note note = new Note();
+
         add = (Button) findViewById(R.id.addNote);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +81,9 @@ public class MainActivity extends FragmentActivity implements
                 String note = data.getStringExtra(Constant.NOTE);
                 notifAdap.addBottom(note);
 
+                Note n = new Note();
+                n.name = note;
+                n.save();
             }
             if (requestCode == Constant.REQUES_CODE_FOR_UPDATE) {
                 String note = data.getStringExtra("WORD");

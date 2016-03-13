@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.johnsnow.fragmentnote.R;
 import com.example.johnsnow.fragmentnote.adapters.NotificationAdapter;
+import com.example.johnsnow.fragmentnote.control.NoteItemTouchListener;
 import com.example.johnsnow.fragmentnote.dialog.LongClickDialog;
 import com.example.johnsnow.fragmentnote.helper.Constant;
 import com.example.johnsnow.fragmentnote.model.Note;
@@ -24,12 +26,15 @@ public class MainActivity extends FragmentActivity implements
     private NotificationAdapter notifAdap;
     private LongClickDialog longClickDialog;
 
+    private NoteItemTouchListener chatFeedTouchListener;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         rvNotif = (RecyclerView) findViewById(R.id.rvNotif);
+        chatFeedTouchListener = new NoteItemTouchListener();
+
         notifAdap = new NotificationAdapter(this, Note.getAll());
         rvNotif.setAdapter(notifAdap);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -95,6 +100,21 @@ public class MainActivity extends FragmentActivity implements
     @Override
     public void onNotifLongClick(Note word, int position) {
         longClickDialog.show(word, position);
+    }
+
+    @Override
+    public void onItemDown(View v, int pos) {
+        chatFeedTouchListener.onDownOccured(v);
+    }
+
+    @Override
+    public void onTouch(MotionEvent me) {
+        chatFeedTouchListener.onTouch(rvNotif, me);
+    }
+
+    @Override
+    public void onItemClicked(Note thread, int pos) {
+        //TODO this is called when we single click on Note item
     }
 
 }

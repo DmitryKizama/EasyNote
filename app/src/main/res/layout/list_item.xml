@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tv"
+    android:id="@+id/rlParent"
+    android:layout_marginLeft="-80dp"
+    android:background="#FFCCE5"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:padding="10dp"
-    android:text="TextView"
-    android:textSize="30sp">
-</TextView>
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="TextView"
+        android:textSize="30sp"/>
+
+    <ImageView
+        android:id="@+id/ivRemove"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="center"
+        android:background="#FF0000"
+        android:src="@drawable/ic_cross"/>
+
+    <ImageView
+        android:id="@+id/ivEdit"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="center"
+        android:background="#FF0000"
+        android:src="@drawable/ic_edit"/>
+
+</RelativeLayout>

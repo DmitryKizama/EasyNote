@@ -3,33 +3,28 @@ package com.example.johnsnow.fragmentnote.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.johnsnow.fragmentnote.R;
 import com.example.johnsnow.fragmentnote.model.Note;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<NoteViewHolder>
+        implements NoteViewHolder.OnItemListener{
 
     private List<Note> notifications;
     private OnNotifClickListener listener;
 
     public interface OnNotifClickListener {
         void onNotifLongClick(Note note, int position);
-    }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView tv;
-
-        public ViewHolder(View v) {
-            super(v);
-            tv = (TextView) v.findViewById(R.id.tv);
-        }
+        void onItemDown(View v, int pos);
+        void onTouch(MotionEvent me);
+        void onItemClicked(Note thread, int pos);
+//        void itemRemoved(int pos, int amount);
     }
 
     public NotificationAdapter(Context context, List<Note> listNotes) {
@@ -62,28 +57,37 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         this.listener = listener;
     }
 
-
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View parentView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        return new ViewHolder(parentView);
+    public void remove(int pos) {
+        //todo item at pos removed
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void itemClicked(int pos) {
+        listener.onItemClicked(notifications.get(pos), pos);
+    }
+
+    @Override
+    public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View parentView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        return new NoteViewHolder(parentView, listener, this);
+    }
+
+    @Override
+    public void onBindViewHolder(final NoteViewHolder holder, final int position) {
         final Note notification = notifications.get(position);
 
         holder.tv.setText(notification.getName());
 
-        holder.tv.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (listener != null) {
-                    listener.onNotifLongClick(notification, holder.getAdapterPosition());//holder.getAdapterPosition - give back position
-                }
-                return true;
-            }
-        });
+//        holder.tv.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                if (listener != null) {
+//                    listener.onNotifLongClick(notification, holder.getAdapterPosition());//holder.getAdapterPosition - give back position
+//                }
+//                return true;
+//            }
+//        });
 
     }
 

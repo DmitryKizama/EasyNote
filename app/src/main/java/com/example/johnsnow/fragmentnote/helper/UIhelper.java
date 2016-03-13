@@ -4,11 +4,29 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.IBinder;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 public class UIhelper {
+    private static int height;
+    private static int width;
+    private static DisplayMetrics metrics;
+
+    private static Context appContext;
+
+
+    public static void init(Context c){
+        appContext = c;
+
+        height = ((WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getHeight();
+        width = ((WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth();
+
+        metrics = appContext.getResources().getDisplayMetrics();
+    }
+
+
     public static void hideKeyboard(Activity activity, IBinder binder) {
         if (activity != null) {
             InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -39,4 +57,25 @@ public class UIhelper {
             }
         }
     }
+
+    public static int getW() {
+        return width;
+    }
+
+    public static int getH() {
+        return height;
+    }
+
+    public static int getPixel(float dpi){
+        return (int)(metrics.density * dpi);
+    }
+
+    public static float getPixelF(float dpi){
+        return metrics.density * dpi;
+    }
+
+    public static int getDPI(int px){
+        return (int)(px / metrics.density);
+    }
+
 }

@@ -8,7 +8,6 @@ import android.view.View;
 import com.example.johnsnow.fragmentnote.helper.UIhelper;
 
 public class NoteItemTouchListener implements View.OnTouchListener {
-    private final int OFFSET = UIhelper.getPixel(0);//luft
     private static final int MOVE_DIST = UIhelper.getPixel(80);
     private final int DURATION = 200;
 
@@ -67,9 +66,9 @@ public class NoteItemTouchListener implements View.OnTouchListener {
                 return true;
             case MotionEvent.ACTION_MOVE:
 
-                Log.e("ANT", "down.y :" + down.y + "  y :"+y + "      down.x :"+down.x+"  x :" + x);
-                Log.e("ANT", "Math.abs(down.y - y) :" + Math.abs(down.y - y) +
-                        "      Math.abs(down.x - x) :"+Math.abs(down.x - x));
+                if (ignoreTouch){
+                    return false;
+                }
 
                 if (retry){
                     swipeBegin = false;
@@ -88,15 +87,8 @@ public class NoteItemTouchListener implements View.OnTouchListener {
                     retry = false;
                 }
 
-                if (ignoreTouch){
-                    return false;
-                }
-
-                Log.v("ANT", "ACTION_MOVE");
-//                if (Math.abs(down.x - x) > OFFSET) {
-                    swipeBegin = true;
-                    setScrollEnabled(false);
-//                }
+                swipeBegin = true;
+                setScrollEnabled(false);
 
                 if (swipeBegin) {
                     switch (condition) {
@@ -105,8 +97,8 @@ public class NoteItemTouchListener implements View.OnTouchListener {
                             float ddx = 0;
                             if (x - down.x >= 0) {
                                 ddx = MOVE_DIST;
-                            } else if (down.x - x > OFFSET) {
-                                ddx = MOVE_DIST - (down.x - x - OFFSET);
+                            } else if (down.x - x > 0) {
+                                ddx = MOVE_DIST - (down.x - x);
                             }
 
                             if (ddx < -MOVE_DIST) {
@@ -120,10 +112,10 @@ public class NoteItemTouchListener implements View.OnTouchListener {
                         case NORM: {
 
                             float ddx = 0;
-                            if (x - down.x >= OFFSET) {
-                                ddx = x - down.x - OFFSET;
-                            } else if (down.x - x > OFFSET) {
-                                ddx = -(down.x - x - OFFSET);
+                            if (x - down.x >= 0) {
+                                ddx = x - down.x;
+                            } else if (down.x - x > 0) {
+                                ddx = -(down.x - x);
                             }
 
                             if (ddx < -MOVE_DIST) {
@@ -141,9 +133,9 @@ public class NoteItemTouchListener implements View.OnTouchListener {
                         case CROSS_VISIBLE: {
 
                             float ddx = 0;
-                            if (x - down.x >= OFFSET) {
-                                ddx = -MOVE_DIST + x - down.x - OFFSET;
-                            } else if (down.x - x > OFFSET) {
+                            if (x - down.x >= 0) {
+                                ddx = -MOVE_DIST + x - down.x;
+                            } else if (down.x - x > 0) {
                                 ddx = -MOVE_DIST;
                             }
 
@@ -160,9 +152,7 @@ public class NoteItemTouchListener implements View.OnTouchListener {
                 }
 
             case MotionEvent.ACTION_CANCEL:
-                Log.v("ANT", "ACTION_CANCEL");
             case MotionEvent.ACTION_UP:
-                Log.v("ANT", "ACTION_UP");
                 if (swipeBegin) {
                      resetItems((int) lastView.getTranslationX());
                      setScrollEnabled(true);
@@ -173,7 +163,6 @@ public class NoteItemTouchListener implements View.OnTouchListener {
     }
 
     private void moveItems(float dx) {
-        Log.v("ANT", "lastView.setTranslationX(dx)   dx :: " + dx);
         lastView.setTranslationX(dx);
     }
 
@@ -188,7 +177,6 @@ public class NoteItemTouchListener implements View.OnTouchListener {
         this.lastView = v;
     }
 
-
     public void resetItems(int dist) {
         if (dist > MOVE_DIST / 2) {
             lastView.animate().translationX(MOVE_DIST).setDuration(DURATION).start();
@@ -201,11 +189,7 @@ public class NoteItemTouchListener implements View.OnTouchListener {
 
     }
 
-
     public void setScrollEnabled(boolean enabled) {
-        //TODO
         onNoteItemTouchInActionListener.setTouchInAction(enabled);
-//        scrollEnabled = enabled;
-//        swipeContainer.setEnabled(enabled);
     }
 }

@@ -1,4 +1,12 @@
+.project
+.apt_generated
+.settings
+.DS_Store
+.classpath
+.idea/
+.factorypath
 .gradle
+
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries

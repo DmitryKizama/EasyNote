@@ -8,16 +8,17 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.example.johnsnow.fragmentnote.R;
+import com.example.johnsnow.fragmentnote.model.Note;
 
 public class LongClickDialog extends Dialog {
 
     private Button btnDelete, btnUpdate;
     private int position;
-    private String word;
+    private Note word;
 
     public interface OnDialogListener {
-        void onDeleteText(int position);
-        void onUpdateText(String word, int position);
+        void onDeleteText(Note word, int position);
+        void onUpdateText(Note word, int position);
     }
 
     private OnDialogListener listener;
@@ -48,14 +49,14 @@ public class LongClickDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onDeleteText(position);
+                    listener.onDeleteText(word, position);
                 }
                 LongClickDialog.this.cancel();
             }
         });
     }
 
-    public void show(String word, int position) {
+    public void show(Note word, int position) {
         super.show();
         this.position = position;
         this.word = word;

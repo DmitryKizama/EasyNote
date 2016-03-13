@@ -8,17 +8,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.johnsnow.fragmentnote.R;
+import com.example.johnsnow.fragmentnote.model.Note;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
-    private List<String> notifications;
+    private List<Note> notifications;
     private OnNotifClickListener listener;
 
     public interface OnNotifClickListener {
-        void onNotifLongClick(String word, int position);
+        void onNotifLongClick(Note note, int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -31,12 +32,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
     }
 
-    public NotificationAdapter(Context context) {
-        notifications = new ArrayList<>();
+    public NotificationAdapter(Context context, List<Note> listNotes) {
+        notifications = listNotes;
+        notifyDataSetChanged();
     }
 
-    public void addBottom(String word) {
-        notifications.add(word);
+    public void addBottom(Note note) {
+        notifications.add(note);
         notifyItemInserted(notifications.size() - 1);
     }
 
@@ -48,11 +50,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         notifyItemRemoved(position);
     }
 
-    public void update(int position, String newText) {
+    public void update(int position, Note newNote) {
         if (position >= notifications.size()) {
             return;
         }
-        notifications.set(position, newText);
+        notifications.set(position, newNote);
         notifyItemChanged(position);
     }
 
@@ -69,9 +71,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final String notification = notifications.get(position);
+        final Note notification = notifications.get(position);
 
-        holder.tv.setText(notification);
+        holder.tv.setText(notification.getName());
 
         holder.tv.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

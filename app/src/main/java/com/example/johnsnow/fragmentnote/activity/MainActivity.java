@@ -11,25 +11,18 @@ import android.widget.Button;
 import com.example.johnsnow.fragmentnote.R;
 import com.example.johnsnow.fragmentnote.adapters.NotificationAdapter;
 import com.example.johnsnow.fragmentnote.dialog.LongClickDialog;
-import com.example.johnsnow.fragmentnote.dialog.UpdateDialog;
 import com.example.johnsnow.fragmentnote.helper.Constant;
 import com.example.johnsnow.fragmentnote.model.Note;
 
 public class MainActivity extends FragmentActivity implements
-        LongClickDialog.OnDialogListener, NotificationAdapter.OnNotifClickListener, UpdateDialog.OnDialogListener
+        LongClickDialog.OnDialogListener, NotificationAdapter.OnNotifClickListener
 // NewNoteDialog.OnDialogListener doesn't needed any more, because of AddActivity
 {
 
-    public interface OnUpdateNote {
-        void onUpdateNote (String word, int position);
-    }
-
-    private Button add;
-    //    private NewNoteDialog dialog;
+    private Button btnAdd;
     private RecyclerView rvNotif;
     private NotificationAdapter notifAdap;
     private LongClickDialog longClickDialog;
-    private UpdateDialog updateDialog;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +30,7 @@ public class MainActivity extends FragmentActivity implements
         setContentView(R.layout.activity_main);
 
         rvNotif = (RecyclerView) findViewById(R.id.rvNotif);
-        notifAdap = new NotificationAdapter(this);
+        notifAdap = new NotificationAdapter(this, Note.getAll());
         rvNotif.setAdapter(notifAdap);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvNotif.setHasFixedSize(true);
@@ -45,25 +38,15 @@ public class MainActivity extends FragmentActivity implements
 
         notifAdap.setOnNotifClickListener(this);
 
-//        dialog = new NewNoteDialog(this);//work when pressed "add note" button
-//        dialog.setListener(this);
-
-        updateDialog = new UpdateDialog(this);//set update dialog listener, work when button update pressed
-        updateDialog.setListener(this);
-
         longClickDialog = new LongClickDialog(this);//when long pressed on word
         longClickDialog.setListener(this);
 
-        Note note = new Note();
-
-        add = (Button) findViewById(R.id.addNote);
-        add.setOnClickListener(new View.OnClickListener() {
+        btnAdd = (Button) findViewById(R.id.addNote);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent addNote = new Intent(MainActivity.this, AddActivity.class);
                 startActivityForResult(addNote, Constant.REQUES_CODE_ADD_NOTE);
-//                dialog.show();
-//                UIhelper.showKeyboardForDialog(MainActivity.this, dialog.getEditText(), dialog);
             }
         });
 
@@ -76,33 +59,33 @@ public class MainActivity extends FragmentActivity implements
             return;
         }
         if (resultCode == RESULT_OK) {
-//            String note = data.getStringExtra(Constant.NOTE);
+
             if (requestCode == Constant.REQUES_CODE_ADD_NOTE) {
-                String note = data.getStringExtra(Constant.NOTE);
+                int id = data.getIntExtra("NOTE", 0);
+                Note note = Note.findbyId(id);
                 notifAdap.addBottom(note);
 
-                Note n = new Note();
-                n.name = note;
-                n.save();
             }
             if (requestCode == Constant.REQUES_CODE_FOR_UPDATE) {
-                String note = data.getStringExtra("WORD");
                 int position = data.getIntExtra("POS", 0);
+                int id = data.getIntExtra("NOTE", 0);
+                Note note = Note.findbyId(id);
                 notifAdap.update(position, note);
             }
         }
     }
 
     @Override
-    public void onDeleteText(int position) {
+    public void onDeleteText(Note note, int position) {
         notifAdap.deleteElementAtPos(position);
+        note.delete();
     }
 
     @Override
-    public void onUpdateText(String word, int position) {
+    public void onUpdateText(Note word, int position) {
         Intent addNote = new Intent(MainActivity.this, AddActivity.class);
         addNote.putExtra("POS", position);
-        addNote.putExtra("WORD", word);
+        addNote.putExtra("NOTE", word.getIdNumber());
         startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
 //        updateDialog.show();
 //        UIhelper.showKeyboardForDialog(MainActivity.this, updateDialog.getEditText(), updateDialog);
@@ -110,12 +93,8 @@ public class MainActivity extends FragmentActivity implements
     }
 
     @Override
-    public void onNotifLongClick(String word, int position) {
-        longClickDialog.show(word,position);
+    public void onNotifLongClick(Note word, int position) {
+        longClickDialog.show(word, position);
     }
 
-    @Override
-    public void onUpdateText(int position, String word) {
-        notifAdap.update(position, word);
-    }
 }

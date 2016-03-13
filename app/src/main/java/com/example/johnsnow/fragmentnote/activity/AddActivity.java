@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.example.johnsnow.fragmentnote.R;
 import com.example.johnsnow.fragmentnote.helper.Constant;
 import com.example.johnsnow.fragmentnote.helper.UIhelper;
+import com.example.johnsnow.fragmentnote.model.Note;
 
 public class AddActivity extends FragmentActivity {
 
@@ -19,7 +20,7 @@ public class AddActivity extends FragmentActivity {
     private Button btnAdd, btnCancel;
     private EditText etNote;
     private int position;
-    private String word;
+    private Note note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,9 @@ public class AddActivity extends FragmentActivity {
 
         etNote = (EditText) findViewById(R.id.etNote);
         UIhelper.showKeyboard(AddActivity.this, etNote);
-
-        etNote.setText(word);
+        if (note != null) {
+            etNote.setText(note.getName());
+        }
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnCancel = (Button) findViewById(R.id.btnBack);
@@ -39,11 +41,7 @@ public class AddActivity extends FragmentActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("WORD", etNote.getText().toString());
-                intent.putExtra("POS", position);
-                setResult(RESULT_OK, intent);
-                finish();
+                onAddClick();
             }
         });
 
@@ -55,10 +53,26 @@ public class AddActivity extends FragmentActivity {
             }
         });
     }
-    private void getIntentInfo(){
-        if (getIntent() != null){
+
+    private void onAddClick(){
+        if (note == null){
+            note = new Note(etNote.getText().toString());
+        }else {
+            note.setName(etNote.getText().toString());
+            note.save();
+        }
+        Intent intent = new Intent();
+        intent.putExtra("NOTE", note.getIdNumber());
+        intent.putExtra("POS", position);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    private void getIntentInfo() {
+        if (getIntent() != null) {
             position = getIntent().getIntExtra("POS", 0);
-            word = getIntent().getStringExtra("WORD");
+            int id = getIntent().getIntExtra("NOTE", 0);
+            note = Note.findbyId(id);
         }
     }
 }

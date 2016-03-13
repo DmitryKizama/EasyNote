@@ -12,31 +12,57 @@ public class Note extends Model {
 
     public static final String NOTE = "NOTE";
     public static final String ID = "id_for_note";
+    public static int idCounter;
+    static {
+        Note n = new Select().from(Note.class).orderBy(ID + " DESC").executeSingle();
+        if (n != null){
+            idCounter = n.idNumber;
+        } else {
+            idCounter = 0;
+        }
+    }
+
 
     @Column(name = NOTE)
-    public String name;
+    private String name;
 
     @Column(name = ID)
-    public String id;
+    private int idNumber;
+
+    public int getIdNumber() {
+        return idNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
+    }
 
     public Note() {
         super();
     }
 
-    public Note(String name, String id) {
+    public Note(String name) {
         super();
         this.name = name;
-        this.id = id;
+        this.idNumber = ++idCounter;
+        save();
     }
-
 
 
     public static Note findbyId(int id) {
-        Note n = new Select().from(Note.class).where("Id = ?", id).executeSingle();
-        return n;
+        return new Select().from(Note.class).where(ID + "= ?", id).executeSingle();
     }
 
-    public List<Note> items() {
-        return getMany(Note.class, "Category");
+    public static List<Note> getAll() {
+        return new Select().from(Note.class).execute();
     }
+
 }

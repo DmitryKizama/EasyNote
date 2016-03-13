@@ -17,7 +17,8 @@ import com.example.johnsnow.fragmentnote.helper.Constant;
 import com.example.johnsnow.fragmentnote.model.Note;
 
 public class MainActivity extends FragmentActivity implements
-        LongClickDialog.OnDialogListener, NotificationAdapter.OnNotifClickListener
+        LongClickDialog.OnDialogListener, NotificationAdapter.OnNotifClickListener,
+        NoteItemTouchListener.OnNoteItemTouchInActionListener
 // NewNoteDialog.OnDialogListener doesn't needed any more, because of AddActivity
 {
 
@@ -27,17 +28,29 @@ public class MainActivity extends FragmentActivity implements
     private LongClickDialog longClickDialog;
 
     private NoteItemTouchListener chatFeedTouchListener;
+    private boolean scrollEnabled = true;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         rvNotif = (RecyclerView) findViewById(R.id.rvNotif);
-        chatFeedTouchListener = new NoteItemTouchListener();
+        chatFeedTouchListener = new NoteItemTouchListener(this);
 
         notifAdap = new NotificationAdapter(this, Note.getAll());
         rvNotif.setAdapter(notifAdap);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false){
+            @Override
+            public boolean canScrollVertically() {
+                if (!scrollEnabled){
+                    return false;
+                }
+
+                return super.canScrollVertically();
+            }
+        };
+
         rvNotif.setHasFixedSize(true);
         rvNotif.setLayoutManager(mLayoutManager);
 
@@ -117,4 +130,8 @@ public class MainActivity extends FragmentActivity implements
         //TODO this is called when we single click on Note item
     }
 
+    @Override
+    public void setTouchInAction(boolean inAction) {
+        scrollEnabled = inAction;
+    }
 }

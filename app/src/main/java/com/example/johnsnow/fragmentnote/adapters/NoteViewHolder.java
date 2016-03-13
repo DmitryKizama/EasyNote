@@ -64,8 +64,8 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+
                     listener.onItemDown(itemView, getAdapterPosition());
-//                        Log.d("ANT", " listener.onItemDown(parentView, getAdapterPosition());");
 
                     down.x = event.getX();
                     down.y = event.getY();
@@ -74,6 +74,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 //                        llContent.setSelected(true);
 
                     listener.onTouch(event);
+
                     return true;
                 case MotionEvent.ACTION_MOVE:
 //                        Log.d("ANT", " ACTION_MOVE");

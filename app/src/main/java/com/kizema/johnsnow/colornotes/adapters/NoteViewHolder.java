@@ -76,6 +76,10 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         itemView.setLayoutParams(p);
     }
 
+    public void reset(){
+        itemView.setTranslationX(0);
+    }
+
     private class NoteViewHolderTouchListener implements View.OnTouchListener {
         private boolean onDown = false;
 

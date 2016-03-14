@@ -70,12 +70,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvNotif"
+    <fragment
+        android:id="@+id/notesFrag"
+        android:name="com.kizema.johnsnow.colornotes.activity.NotesFragment"
         android:layout_below="@id/abLayout"
+        android:layout_above="@+id/addNote"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/addNote"/>
+        android:layout_height="match_parent" />
 
 
 </RelativeLayout>

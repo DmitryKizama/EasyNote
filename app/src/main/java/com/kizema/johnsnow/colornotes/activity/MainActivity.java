@@ -2,28 +2,18 @@ package com.kizema.johnsnow.colornotes.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.kizema.johnsnow.colornotes.R;
-import com.kizema.johnsnow.colornotes.adapters.NotificationAdapter;
-import com.kizema.johnsnow.colornotes.control.NoteItemTouchListener;
 import com.kizema.johnsnow.colornotes.helper.Constant;
 import com.kizema.johnsnow.colornotes.model.Note;
 
-public class MainActivity extends BaseActivity implements
-        NotificationAdapter.OnNotifClickListener, NoteItemTouchListener.OnNoteItemTouchInActionListener {
+public class MainActivity extends BaseActivity implements NotesFragment.OnNoteFragInterectionCallback {
 
     private Button btnAdd;
-    private RecyclerView rvNotif;
-    private NotificationAdapter notifAdap;
 
-    private NoteItemTouchListener chatFeedTouchListener;
-    private boolean scrollEnabled = true;
+    protected NotesFragment notesFrag;
 
     private View ivSearch, ivSettings, ivSwitchView;
 
@@ -33,27 +23,7 @@ public class MainActivity extends BaseActivity implements
 
         initActionBar();
 
-        rvNotif = (RecyclerView) findViewById(R.id.rvNotif);
-        chatFeedTouchListener = new NoteItemTouchListener(this);
-
-        notifAdap = new NotificationAdapter(this, Note.getAll());
-        rvNotif.setAdapter(notifAdap);
-
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false){
-            @Override
-            public boolean canScrollVertically() {
-                if (!scrollEnabled){
-                    return false;
-                }
-
-                return super.canScrollVertically();
-            }
-        };
-
-        rvNotif.setHasFixedSize(true);
-        rvNotif.setLayoutManager(mLayoutManager);
-
-        notifAdap.setOnNotifClickListener(this);
+        notesFrag = (NotesFragment) getFragmentManager().findFragmentById(R.id.notesFrag);
 
         btnAdd = (Button) findViewById(R.id.addNote);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -95,58 +65,20 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null) {
-            return;
-        }
+
         if (resultCode == RESULT_OK) {
             if (requestCode == Constant.REQUES_CODE_ADD_NOTE) {
                 int id = data.getIntExtra("NOTE", 0);
                 Note note = Note.findbyId(id);
-                notifAdap.addBottom(note);
-
-            }
-
-            if (requestCode == Constant.REQUES_CODE_FOR_UPDATE) {
-                int position = data.getIntExtra("POS", 0);
-                int id = data.getIntExtra("NOTE", 0);
-                Note note = Note.findbyId(id);
-                notifAdap.update(position, note);
+                notesFrag.notifAdap.addBottom(note);
             }
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void onItemDown(View v, int pos) {
-        chatFeedTouchListener.onDownOccured(v);
-    }
-
-    @Override
-    public void onTouch(MotionEvent me) {
-        chatFeedTouchListener.onTouch(rvNotif, me);
-    }
-
-    @Override
-    public void onItemClicked(Note note, int pos) {
-        //TODO this is called when we single click on Note item
-        Toast.makeText(this, "Clicked : " + note.getName(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void itemRemoveClicked(Note note, int pos) {
-        notifAdap.deleteElementAtPos(pos);
-        note.delete();
-    }
-
-    @Override
-    public void itemEditClicked(Note note, int pos) {
-        Intent addNote = new Intent(MainActivity.this, AddActivity.class);
-        addNote.putExtra("POS", pos);
-        addNote.putExtra("NOTE", note.getIdNumber());
-        startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
-    }
-
-    @Override
-    public void setTouchInAction(boolean inAction) {
-        scrollEnabled = inAction;
+    public boolean isRecyclerViewStable() {
+        return true;
     }
 }

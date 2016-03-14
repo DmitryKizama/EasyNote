@@ -1,9 +1,11 @@
 package com.kizema.johnsnow.colornotes.activity;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,14 +24,17 @@ import java.util.Date;
 import java.util.List;
 
 public class SearchActivity extends BaseActivity implements DualProgressBar.OnDualProgressListener,
-        ColorsAdapter.OnColorCLick {
+        ColorsAdapter.OnColorCLick, NotesFragment.OnNoteFragInterectionCallback {
 
     private View ivBack;
     private FilterAppearDisappearControl filterAppearDisappearControl;
     private EditText tvABTitle;
 
+    protected NotesFragment notesFrag;
+
     private LinearLayout llFilter;
-    private int filterH;
+    private ViewGroup parent;
+    private int filterH, filterY;
 
     private DualProgressBar dateProgressBar;
     private RecyclerView rvColors;
@@ -47,6 +52,9 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         leftDateMs = new Date(114, 10, 12).getTime();
         rightDateMs = new Date().getTime();
 
+        parent = (ViewGroup) findViewById(R.id.parent);
+        notesFrag = (NotesFragment) getFragmentManager().findFragmentById(R.id.notesFrag);
+
         initActionBar();
         initFilter();
     }
@@ -57,6 +65,7 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 filterH = llFilter.getHeight();
+                filterY = (int) llFilter.getY();
             }
         });
         initDateProgressbar();
@@ -115,9 +124,50 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
     private void openFiletr(){
         //open filter
         if (!filterIsOpened){
-            llFilter.animate().translationY(0).setDuration(500).start();
+            llFilter.animate().translationY(0).setDuration(500).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            }).start();
+
         } else {
-            llFilter.animate().translationY(-filterH).setDuration(500).start();
+            llFilter.animate().translationY(-filterH).setDuration(500).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            }).start();
+
         }
 
         filterIsOpened = !filterIsOpened;
@@ -145,4 +195,8 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         //do search
     }
 
+    @Override
+    public boolean isRecyclerViewStable() {
+        return false;
+    }
 }

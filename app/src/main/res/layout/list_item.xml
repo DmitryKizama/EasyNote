@@ -1,45 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kizema.johnsnow.colornotes.appviews.AppRelativeLayout
+<com.kizema.johnsnow.colornotes.appviews.AppRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rlParent"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
     android:layout_marginLeft="-80dp"
     app:backgroundStateColor="@color/neutralBack"
-    app:backgroundStateSelected="@color/neutralBackPressed"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    app:backgroundStateSelected="@color/neutralBackPressed">
 
-    <TextView
-        android:id="@+id/tv"
+    <com.kizema.johnsnow.colornotes.appviews.AppRelativeLayout
+        android:id="@+id/rlEntryParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="80dp"
-        android:layout_marginLeft="80dp"
-        android:gravity="center_horizontal"
-        android:padding="10dp"
-        android:text="TextView"
-        android:textSize="30sp"/>
+        android:layout_marginLeft="90dp"
+        android:layout_marginRight="90dp">
+
+        <com.kizema.johnsnow.colornotes.appviews.AppImageView
+            android:id="@+id/ivFlagColor"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="-9dp"
+            android:src="@drawable/ic_flag"
+            app:drawableColor="@color/abBack" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:textColor="@color/TextColorTitle"
+            android:text="TextView"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvDescr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textColor="@color/TextColorDescr"
+            android:layout_below="@id/tvTitle"
+            android:text="TextView TextView TextView TextView TextView TextView TextView TextView TextView TextView TextView TextView TextView TextView TextView TextView TextView TextView "
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/llAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentBottom="true">
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:id="@+id/ivAlarm"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_alarm"
+                app:drawableColor="@color/item"
+                app:drawableStatePressed="@color/itemPressed" />
+
+            <TextView
+                android:id="@+id/tvAlarmText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:textColor="@color/TextColorSecondary"
+                android:layout_gravity="center_vertical"
+                android:maxLines="1"
+                android:text="alarm text"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/TextColorSecondary"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="time"
+            android:textSize="14sp" />
+
+    </com.kizema.johnsnow.colornotes.appviews.AppRelativeLayout>
 
     <com.kizema.johnsnow.colornotes.appviews.AppImageView
         android:id="@+id/ivRemove"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:scaleType="center"
+        android:src="@drawable/ic_cross"
         app:backgroundStateColor="@color/iconAccentBack"
         app:backgroundStatePressed="@color/iconAccentBackPressed"
         app:drawableColor="@color/iconAccent"
-        app:drawableStatePressed="@color/iconAccentPressed"
-        android:src="@drawable/ic_cross"/>
+        app:drawableStatePressed="@color/iconAccentPressed" />
 
     <com.kizema.johnsnow.colornotes.appviews.AppImageView
         android:id="@+id/ivEdit"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:scaleType="center"
+        android:src="@drawable/ic_edit"
         app:backgroundStateColor="@color/iconAccentBack"
         app:backgroundStatePressed="@color/iconAccentBackPressed"
         app:drawableColor="@color/iconAccent"
-        app:drawableStatePressed="@color/iconAccentPressed"
-        android:src="@drawable/ic_edit"/>
+        app:drawableStatePressed="@color/iconAccentPressed" />
 
 </com.kizema.johnsnow.colornotes.appviews.AppRelativeLayout>

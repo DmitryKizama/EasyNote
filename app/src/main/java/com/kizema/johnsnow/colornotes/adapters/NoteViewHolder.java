@@ -15,15 +15,17 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     private static final int MOVE_DIST = UIHelper.getPixel(80);
     private static final int OFFSET = UIHelper.getPixel(30);
-    private static final int OFFSET_CLICK = UIHelper.getPixel(5);
+    private static final int OFFSET_CLICK = UIHelper.getPixel(2);
 
 
 
-    public TextView tv;
+    public TextView tvTitle, tvDescr, tvAlarmText, tvTime;
+    public ViewGroup llAlarm;
+
 
     private RelativeLayout rlParent;
-
     private View ivRemove, ivEdit;
+
     private NotificationAdapter.OnNotifClickListener listener;
 
     private OnItemListener itemListener;
@@ -43,8 +45,13 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
         v.setOnTouchListener(new NoteViewHolderTouchListener());
         rlParent = (RelativeLayout) v.findViewById(R.id.rlParent);
-        tv = (TextView) v.findViewById(R.id.tv);
+        tvTitle = (TextView) v.findViewById(R.id.tvTitle);
+        tvDescr = (TextView) v.findViewById(R.id.tvDescr);
+        tvAlarmText = (TextView) v.findViewById(R.id.tvAlarmText);
+        tvTime = (TextView) v.findViewById(R.id.tvTime);
+
         ivRemove = v.findViewById(R.id.ivRemove);
+        llAlarm = (ViewGroup) v.findViewById(R.id.llAlarm);
         ivEdit = v.findViewById(R.id.ivEdit);
 
         ivEdit.setOnClickListener(new View.OnClickListener() {
@@ -98,21 +105,6 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
                     if (Math.abs(down.x - event.getX()) > OFFSET_CLICK ||
                             Math.abs(down.y - event.getY()) > OFFSET_CLICK){
                         onDown = false;
-                    }
-
-                    if (!(0 <= event.getX() && event.getX() <= itemView.getWidth()
-                            && 0 <= event.getY() && event.getY() <= itemView.getHeight())) {
-//                            Log.d("ANT", " ACTION_MOVE   OUT");
-                        onDown = false;
-                        rlParent.setSelected(false);
-                        return true;
-                    }
-
-                    if (Math.abs(down.x - event.getX()) > OFFSET || Math.abs(down.y - event.getY()) > OFFSET) {
-//                            Log.d("ANT", " ACTION_MOVE   OUT");
-                        onDown = false;
-                        rlParent.setSelected(false);
-                        return true;
                     }
 
                     return true;

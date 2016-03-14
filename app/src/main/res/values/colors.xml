@@ -20,5 +20,10 @@
     <color name="ABIcon">#111110</color>
     <color name="ABIconPressed">#5B5B5B</color>
 
+    <color name="item">#0E0E0E</color>
+    <color name="itemPressed">#5B5B5B</color>
 
+    <color name="TextColorTitle">#0D0D0D</color>
+    <color name="TextColorDescr">#242424</color>
+    <color name="TextColorSecondary">#5B5B5B</color>
 </resources>

@@ -80,7 +80,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NoteViewHolder>
     @Override
     public void onBindViewHolder(final NoteViewHolder holder, final int position) {
         final Note notification = notifications.get(position);
-        holder.tv.setText(notification.getName());
+        holder.tvTitle.setText(notification.getName());
+
+        holder.llAlarm.setVisibility(View.GONE);
     }
 
     @Override

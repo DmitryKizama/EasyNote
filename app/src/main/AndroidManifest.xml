@@ -15,9 +15,10 @@
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
-        <!-- <meta-data -->
-        <!-- android:name="AA_MODELS" -->
-        <!-- android:value="com.myapp.model.Item, com.myapp.model.Category" /> -->
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.kizema.johnsnow.colornotes.model.UserColor,
+          com.kizema.johnsnow.colornotes.model.Note" />
 
 
         <activity

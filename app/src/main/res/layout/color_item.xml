@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kizema.johnsnow.colornotes.appviews.AppRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlParent"
+    android:layout_width="50dp"
+    android:layout_height="50dp">
+
+    <com.kizema.johnsnow.colornotes.appviews.AppCircleImageView
+        android:id="@+id/ibCB"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:src="@drawable/ic_ok"
+        android:scaleType="center"
+        app:cb_pressedRingWidth="8dip"
+        app:drawableColor="@android:color/transparent"
+        app:drawableStateSelected="@color/black"/>
+
+
+</com.kizema.johnsnow.colornotes.appviews.AppRelativeLayout>

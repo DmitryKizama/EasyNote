@@ -35,6 +35,12 @@ public class MainActivity extends BaseActivity implements NotesFragment.OnNoteFr
         });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        notesFrag.update();
+    }
+
     private void initActionBar(){
         ivSearch = findViewById(R.id.ivSearch);
         ivSettings = findViewById(R.id.ivSettings);

@@ -66,6 +66,10 @@ public class NotesFragment extends Fragment implements NoteItemTouchListener.OnN
         onNoteInterectionCallback = null;
     }
 
+    public void update(){
+        notifAdap.update(Note.getAll());
+    }
+
     private void init(){
         rvNotif = (RecyclerView) chatFragParent.findViewById(R.id.rvNotif);
         chatFeedTouchListener = new NoteItemTouchListener(this);

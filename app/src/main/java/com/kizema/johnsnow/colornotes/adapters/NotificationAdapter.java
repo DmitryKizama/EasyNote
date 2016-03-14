@@ -44,6 +44,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NoteViewHolder>
         notifyItemRemoved(position);
     }
 
+    public void update(List<Note> listNotes) {
+        notifications = listNotes;
+        notifyDataSetChanged();
+    }
+
     public void update(int position, Note newNote) {
         if (position >= notifications.size()) {
             return;

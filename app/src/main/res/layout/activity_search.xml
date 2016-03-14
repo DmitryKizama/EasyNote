@@ -24,13 +24,20 @@
             app:drawableColor="@color/ABIcon"
             app:drawableStatePressed="@color/ABIconPressed" />
 
-        <com.kizema.johnsnow.colornotes.appviews.AppTextView
+        <com.kizema.johnsnow.colornotes.appviews.AppEditText
             android:id="@+id/tvABTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginRight="80dp"
+            android:layout_marginLeft="80dp"
             android:gravity="center"
-            android:text="Colorful Notes"
+            android:hint="Search for..."
+            android:minWidth="100dp"
+            android:maxLines="1"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:text=""
             android:textColor="@color/ABIcon"
             android:textSize="18dp" />
 
@@ -49,46 +56,48 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/llSearchAndFilter"
+        android:id="@+id/llFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/abLayout"
         android:orientation="vertical">
 
-        <com.kizema.johnsnow.colornotes.appviews.AppEditText
-            android:id="@+id/etSearchText"
-            android:layout_width="match_parent"
+        <com.kizema.johnsnow.colornotes.appviews.AppTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Search text..."
-            android:text=""
-            android:textColor="@color/TextColorTitle"
-            android:textSize="18dp" />
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:text="Choose time range:"
+            android:textColor="@color/ABIcon"
+            android:textSize="16dp" />
 
-        <LinearLayout
-            android:id="@+id/llFilter"
+        <com.kizema.johnsnow.colornotes.appviews.DualProgressBar
+            android:id="@+id/ageProgressBar"
             android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:DualProgressBarMax="1000"
+            app:DualProgressBarMin="0"
+            app:ValLeft="20"
+            app:ValRight="300" />
+
+        <com.kizema.johnsnow.colornotes.appviews.AppTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:minWidth="100dp"
+            android:layout_marginLeft="20dp"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:text="Choose color:"
+            android:textColor="@color/ABIcon"
+            android:textSize="16dp" />
 
-            <com.kizema.johnsnow.colornotes.appviews.DualProgressBar
-                android:id="@+id/ageProgressBar"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:DualProgressBarMin="0"
-                app:DualProgressBarMax="1000"
-                app:ValLeft="20"
-                app:ValRight="300"
-                />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvColors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvColors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 
@@ -97,7 +106,7 @@
         android:id="@+id/rvNotif"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/llSearchAndFilter" />
+        android:layout_below="@id/llFilter" />
 
 
 </RelativeLayout>

@@ -15,14 +15,15 @@ public class NoteItemTouchListener implements View.OnTouchListener {
     private boolean ignoreTouch = false;
     private boolean retry = false;
 
-    private int extraX = 0;
-
     private View lastView;
     private PointF down = new PointF();
 
     private Condition condition;
 
     private OnNoteItemTouchInActionListener onNoteItemTouchInActionListener;
+
+//    private VelocityTracker mVelocityTracker = null;
+    int pointerId;
 
     public interface OnNoteItemTouchInActionListener{
         void setTouchInAction(boolean inAction);
@@ -60,8 +61,18 @@ public class NoteItemTouchListener implements View.OnTouchListener {
                 } else {
                     condition = Condition.NORM;
                 }
-
                 Log.v("ANT", "condition :: " + condition);
+
+//                int index = event.getActionIndex();
+//                pointerId = event.getPointerId(index);
+//                if(mVelocityTracker == null) {
+//                    // Retrieve a new VelocityTracker object to watch the velocity of a motion.
+//                    mVelocityTracker = VelocityTracker.obtain();
+//                } else {
+//                    // Reset the velocity tracker back to its initial state.
+//                    mVelocityTracker.clear();
+//                }
+//                mVelocityTracker.addMovement(event);
 
                 return true;
             case MotionEvent.ACTION_MOVE:
@@ -86,6 +97,12 @@ public class NoteItemTouchListener implements View.OnTouchListener {
                 } else {
                     retry = false;
                 }
+
+//                mVelocityTracker.addMovement(event);
+//                // When you want to determine the velocity, call
+//                // computeCurrentVelocity(). Then call getXVelocity()
+//                // and getYVelocity() to retrieve the velocity for each pointer ID.
+//                mVelocityTracker.computeCurrentVelocity(1000);
 
                 swipeBegin = true;
                 setScrollEnabled(false);
@@ -153,10 +170,25 @@ public class NoteItemTouchListener implements View.OnTouchListener {
 
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
-                if (swipeBegin) {
-                     resetItems((int) lastView.getTranslationX());
-                     setScrollEnabled(true);
-                }
+
+//                if (mVelocityTracker != null) {
+//
+//                    float Vx = VelocityTrackerCompat.getXVelocity(mVelocityTracker, pointerId);
+////                    float Vy = VelocityTrackerCompat.getYVelocity(mVelocityTracker, pointerId);
+//                    Log.e("RR", "X velocity: " + Vx);
+//
+//                    // Return a VelocityTracker object back to be re-used by others.
+//                    mVelocityTracker.recycle();
+//                    mVelocityTracker = null;
+//
+//                    int transX = (int) ( lastView.getTranslationX() + Vx / 1000 * MOVE_DIST);
+
+                    if (swipeBegin) {
+                        int transX = (int) ( lastView.getTranslationX());
+                        resetItems(transX);
+                        setScrollEnabled(true);
+                    }
+//                }
         }
 
         return false;
@@ -185,8 +217,6 @@ public class NoteItemTouchListener implements View.OnTouchListener {
         } else {
             lastView.animate().translationX(0).setDuration(DURATION).start();
         }
-
-
     }
 
     public void setScrollEnabled(boolean enabled) {

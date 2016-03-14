@@ -74,7 +74,7 @@ public class MainActivity extends FragmentActivity implements
                 notifAdap.addBottom(note);
 
             }
-            
+
             if (requestCode == Constant.REQUES_CODE_FOR_UPDATE) {
                 int position = data.getIntExtra("POS", 0);
                 int id = data.getIntExtra("NOTE", 0);

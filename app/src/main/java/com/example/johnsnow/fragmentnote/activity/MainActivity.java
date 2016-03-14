@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.johnsnow.fragmentnote.R;
 import com.example.johnsnow.fragmentnote.adapters.NotificationAdapter;
@@ -126,8 +127,23 @@ public class MainActivity extends FragmentActivity implements
     }
 
     @Override
-    public void onItemClicked(Note thread, int pos) {
+    public void onItemClicked(Note note, int pos) {
         //TODO this is called when we single click on Note item
+        Toast.makeText(this, "Clicked : " + note.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void itemRemoveClicked(Note note, int pos) {
+        notifAdap.deleteElementAtPos(pos);
+        note.delete();
+    }
+
+    @Override
+    public void itemEditClicked(Note note, int pos) {
+        Intent addNote = new Intent(MainActivity.this, AddActivity.class);
+        addNote.putExtra("POS", pos);
+        addNote.putExtra("NOTE", note.getIdNumber());
+        startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
     }
 
     @Override

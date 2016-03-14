@@ -1,0 +1,29 @@
+<resources>
+    <declare-styleable name="AppViews">
+
+        <attr name="drawableColor" format="color" />
+        <attr name="drawableStatePressed" format="color" />
+        <attr name="drawableStateSelected" format="color" />
+
+        <attr name="mutate" format="boolean" />
+
+        <attr name="backgroundIsColor" format="boolean" />
+        <attr name="backgroundStateColor" format="color" />
+        <attr name="backgroundStatePressed" format="color" />
+        <attr name="backgroundStateSelected" format="color" />
+
+        <attr name="textColorState" format="color" />
+        <attr name="textColorPressed" format="color" />
+        <attr name="textColorSelected" format="color" />
+
+        <attr name="viewFont" format="enum">
+            <enum name="HelveticaNeue" value="0" />
+            <enum name="HelveticaNeueBold" value="1" />
+            <enum name="HelveticaNeueUltraLight" value="2" />
+            <enum name="HelveticaNeueLight" value="3" />
+            <enum name="HelveticaNeueThin" value="4" />
+            <enum name="HelveticaNeueMedium" value="5" />
+        </attr>
+
+    </declare-styleable>
+</resources>

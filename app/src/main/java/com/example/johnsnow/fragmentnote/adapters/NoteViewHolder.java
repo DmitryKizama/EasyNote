@@ -15,11 +15,12 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     private static final int MOVE_DIST = UIhelper.getPixel(80);
     private static final int OFFSET = UIhelper.getPixel(30);
+    private static final int OFFSET_CLICK = UIhelper.getPixel(5);
+
 
 
     public TextView tv;
 
-    //TODO use as select/ deselect drawable handle
     private RelativeLayout rlParent;
 
     private View ivRemove, ivEdit;
@@ -28,7 +29,8 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     private OnItemListener itemListener;
 
     public interface OnItemListener {
-        void remove(int pos);
+        void removeNoteAtPos(int pos);
+        void editNoteAtPos(int pos);
 
         void itemClicked(int pos);
     }
@@ -45,6 +47,19 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         ivRemove = v.findViewById(R.id.ivRemove);
         ivEdit = v.findViewById(R.id.ivEdit);
 
+        ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoteViewHolder.this.itemListener.editNoteAtPos(getAdapterPosition());
+            }
+        });
+
+        ivRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoteViewHolder.this.itemListener.removeNoteAtPos(getAdapterPosition());
+            }
+        });
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivRemove.getLayoutParams();
         params.leftMargin = UIhelper.getW() + MOVE_DIST;
@@ -71,7 +86,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
                     down.y = event.getY();
                     onDown = true;
 
-//                        llContent.setSelected(true);
+                    rlParent.setSelected(true);
 
                     listener.onTouch(event);
 
@@ -80,25 +95,30 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 //                        Log.d("ANT", " ACTION_MOVE");
                     listener.onTouch(event);
 
+                    if (Math.abs(down.x - event.getX()) > OFFSET_CLICK ||
+                            Math.abs(down.y - event.getY()) > OFFSET_CLICK){
+                        onDown = false;
+                    }
+
                     if (!(0 <= event.getX() && event.getX() <= itemView.getWidth()
                             && 0 <= event.getY() && event.getY() <= itemView.getHeight())) {
 //                            Log.d("ANT", " ACTION_MOVE   OUT");
                         onDown = false;
-//                            llContent.setSelected(false);
+                        rlParent.setSelected(false);
                         return true;
                     }
 
                     if (Math.abs(down.x - event.getX()) > OFFSET || Math.abs(down.y - event.getY()) > OFFSET) {
 //                            Log.d("ANT", " ACTION_MOVE   OUT");
                         onDown = false;
-//                            llContent.setSelected(false);
+                        rlParent.setSelected(false);
                         return true;
                     }
 
                     return true;
                 case MotionEvent.ACTION_UP:
 //                        Log.d("ANT", "ACTION_UP");
-//                        llContent.setSelected(false);
+                    rlParent.setSelected(false);
                     listener.onTouch(event);
 
                     if (onDown) {
@@ -117,8 +137,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
                 case MotionEvent.ACTION_CANCEL:
 //                        Log.d("ANT", "ACTION_CANCEL");
-
-//                        llContent.setSelected(false);
+                    rlParent.setSelected(false);
                     listener.onTouch(event);
                     return false;
 

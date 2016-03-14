@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <color name="black">#000000</color>
+
+    <color name="white">#ffffff</color>
+    <color name="real_white">#ffffff</color>
+    <color name="white_hack">#fffffe</color>
+
+
+    <color name="iconAccent">#0E0E0E</color>
+    <color name="iconAccentPressed">#FCFCFC</color>
+    <color name="iconAccentBack">#FF0000</color>
+    <color name="iconAccentBackPressed">#D10303</color>
+
+    <color name="neutralBack">#FFFFFF</color>
+    <color name="neutralBackPressed">#FAFAFA</color>
+
+</resources>

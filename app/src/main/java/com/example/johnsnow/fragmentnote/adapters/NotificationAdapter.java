@@ -23,8 +23,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NoteViewHolder>
 
         void onItemDown(View v, int pos);
         void onTouch(MotionEvent me);
-        void onItemClicked(Note thread, int pos);
-//        void itemRemoved(int pos, int amount);
+        void onItemClicked(Note note, int pos);
+        void itemRemoveClicked(Note note, int pos);
+        void itemEditClicked(Note note, int pos);
     }
 
     public NotificationAdapter(Context context, List<Note> listNotes) {
@@ -58,8 +59,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NoteViewHolder>
     }
 
     @Override
-    public void remove(int pos) {
-        //todo item at pos removed
+    public void removeNoteAtPos(int pos) {
+        listener.itemRemoveClicked(notifications.get(pos), pos);
+    }
+
+    @Override
+    public void editNoteAtPos(int pos) {
+        listener.itemEditClicked(notifications.get(pos), pos);
     }
 
     @Override
@@ -76,19 +82,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NoteViewHolder>
     @Override
     public void onBindViewHolder(final NoteViewHolder holder, final int position) {
         final Note notification = notifications.get(position);
-
         holder.tv.setText(notification.getName());
-
-//        holder.tv.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                if (listener != null) {
-//                    listener.onNotifLongClick(notification, holder.getAdapterPosition());//holder.getAdapterPosition - give back position
-//                }
-//                return true;
-//            }
-//        });
-
     }
 
     @Override

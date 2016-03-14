@@ -24,4 +24,16 @@ if less, we just say "Thank you for your rating"
 ![alt tag](img/3.png)
 ![alt tag](img/4.png)
 
+Plan:
+- [x] Idea
+- [ ] Final version of moqup
 
+- [x] Implement swipe to left/right of Note items
+- [ ] Database reconfig and improve to serve all needs
+- [ ] MainActivity func
+- [ ] NoteEdit (NoteView) Activity implement
+   - [ ] Color picker
+   - [ ] Date and time picker
+- [ ] SearchActivity with filter implement
+   - [ ] dual Date slider
+- [ ] Settings Act and subs implement

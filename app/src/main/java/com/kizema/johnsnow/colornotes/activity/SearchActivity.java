@@ -7,12 +7,18 @@ import android.widget.TextView;
 import com.kizema.johnsnow.colornotes.R;
 import com.kizema.johnsnow.colornotes.appviews.DualProgressBar;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class SearchActivity extends BaseActivity implements DualProgressBar.OnDualProgressListener {
 
     private View ivBack, ivFilter;
     private TextView tvABTitle;
 
     private DualProgressBar ageProgressBar;
+
+    private long leftDateMs, rightDateMs;
 
     private Status status = Status.SEARCH_FILTER;
 
@@ -24,6 +30,10 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        //TODO set proper date from our date corridor
+        leftDateMs = new Date(114, 10, 12).getTime();
+        rightDateMs = new Date().getTime();
 
         initActionBar();
 
@@ -39,8 +49,8 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
     private void initAgeProgressbar(){
         ageProgressBar = (DualProgressBar) findViewById(R.id.ageProgressBar);
         ageProgressBar.setOnDualProgressListener(this);
-//        ageProgressBar.setLeftProgress(myFilter.agetFrom);
-//        ageProgressBar.setRightProgress(myFilter.agetTo);
+        ageProgressBar.setLeftProgress(20);
+        ageProgressBar.setRightProgress(50);
     }
 
     private void initActionBar(){
@@ -92,10 +102,20 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         }
     }
 
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+
     @Override
     public void onProgressChanged(TextView tvSelected, float progress) {
-        //TODO set proper date from our date corridor
-        tvSelected.setText("" + progress);
+        long val = (long)(progress * (rightDateMs - leftDateMs) + leftDateMs);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(val);
+
+        tvSelected.setText(formatter.format(calendar.getTime()));
+    }
+
+    @Override
+    public void onDoneEdit() {
+
     }
 
 }

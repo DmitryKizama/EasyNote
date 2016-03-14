@@ -44,6 +44,7 @@ public class DualProgressBar  extends RelativeLayout {
 
     public interface OnDualProgressListener{
         void onProgressChanged(TextView tvSelected, float progressPersent);
+        void onDoneEdit();
     }
 
     public DualProgressBar(Context context) {
@@ -118,6 +119,9 @@ public class DualProgressBar  extends RelativeLayout {
         setSelectorLeftPosition(pos);
 //        setTextWidgetPos(textLeft, pos);
         textLeft.setText("" + getProgress(selectorLeft));
+        if (onDualProgressListener != null){
+            onDualProgressListener.onProgressChanged(textLeft, (float) getProgress(textLeft) / (max - min));
+        }
     }
 
     public void setRightProgress(int progress) {
@@ -130,6 +134,10 @@ public class DualProgressBar  extends RelativeLayout {
         setSelectorRightPosition(pos);
 //        setTextWidgetPos(textRight, pos);
         textRight.setText("" + getProgress(selectorRight));
+
+        if (onDualProgressListener != null){
+            onDualProgressListener.onProgressChanged(textRight, (float) getProgress(textRight) / (max - min));
+        }
     }
 
     private void setSelectorLeftPosition(float x){
@@ -315,6 +323,13 @@ public class DualProgressBar  extends RelativeLayout {
             selectedTV.setText("" + getProgress(selectedSelector));
             if (onDualProgressListener != null){
                 onDualProgressListener.onProgressChanged(selectedTV, (float) getProgress(selectedSelector) / (max - min));
+            }
+
+            if (event.getAction() == MotionEvent.ACTION_CANCEL ||
+                    event.getAction() == MotionEvent.ACTION_UP) {
+                if (onDualProgressListener != null) {
+                    onDualProgressListener.onDoneEdit();
+                }
             }
 
             return true;

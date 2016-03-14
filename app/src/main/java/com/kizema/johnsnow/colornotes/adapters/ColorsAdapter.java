@@ -58,8 +58,13 @@ public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ViewHolder
                     lastView.setSelected(false);
                 }
 
-                holder.cb.setSelected(true);
-                lastView = holder.cb;
+                if (lastView != holder.cb) {
+                    holder.cb.setSelected(true);
+                    lastView = holder.cb;
+                } else {
+                    lastView = null;
+                }
+
                 listener.OnColorPicked(userColor);
             }
         });

@@ -34,13 +34,9 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
     private DualProgressBar dateProgressBar;
     private RecyclerView rvColors;
 
+    private boolean filterIsOpened = true;
+
     private long leftDateMs, rightDateMs;
-
-    private Status status = Status.SEARCH_FILTER;
-
-    private enum Status{
-        SEARCH, SEARCH_FILTER;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +48,6 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         rightDateMs = new Date().getTime();
 
         initActionBar();
-
         initFilter();
     }
 
@@ -90,7 +85,7 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         dateProgressBar = (DualProgressBar) findViewById(R.id.ageProgressBar);
         dateProgressBar.setOnDualProgressListener(this);
         dateProgressBar.setLeftProgress(20);
-        dateProgressBar.setRightProgress(50);
+        dateProgressBar.setRightProgress(500);
     }
 
     private void initActionBar(){
@@ -112,44 +107,21 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         filterAppearDisappearControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (status) {
-                    case SEARCH:
-                        status = Status.SEARCH_FILTER;
-                        openFiletr(true);
-                        break;
-                    case SEARCH_FILTER:
-                        status = Status.SEARCH;
-                        openFiletr(false);
-                        break;
-                }
-
-                setTvABTitle();
+                openFiletr();
             }
         });
-
-        setTvABTitle();
     }
 
-    private void openFiletr(boolean open){
+    private void openFiletr(){
         //open filter
-        if (open){
+        if (!filterIsOpened){
             llFilter.animate().translationY(0).setDuration(500).start();
         } else {
             llFilter.animate().translationY(-filterH).setDuration(500).start();
         }
 
-    }
+        filterIsOpened = !filterIsOpened;
 
-
-    private void setTvABTitle(){
-        switch (status){
-            case SEARCH:
-//                tvABTitle.setText("Search");
-                break;
-            case SEARCH_FILTER:
-//                tvABTitle.setText("Filter & Search");
-                break;
-        }
     }
 
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");

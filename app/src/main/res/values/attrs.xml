@@ -26,4 +26,13 @@
         </attr>
 
     </declare-styleable>
+
+    <declare-styleable name="DualProgressBar">
+        <attr name="DualProgressBarMin" format="integer" />
+        <attr name="DualProgressBarMax" format="integer" />
+
+        <attr name="ValLeft" format="integer" />
+        <attr name="ValRight" format="integer" />
+    </declare-styleable>
+
 </resources>

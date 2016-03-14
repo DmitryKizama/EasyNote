@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/abLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/abBack">
+
+        <com.kizema.johnsnow.colornotes.appviews.AppImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/ab_icon_size_back"
+            android:layout_height="@dimen/ab_icon_size_back"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+
+            android:src="@drawable/ic_back_arrow"
+            app:drawableColor="@color/ABIcon"
+            app:drawableStatePressed="@color/ABIconPressed" />
+
+        <com.kizema.johnsnow.colornotes.appviews.AppTextView
+            android:id="@+id/tvABTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Colorful Notes"
+            android:textColor="@color/ABIcon"
+            android:textSize="18dp" />
+
+        <com.kizema.johnsnow.colornotes.appviews.AppImageView
+            android:id="@+id/ivFilter"
+            android:layout_width="@dimen/ab_icon_size_back"
+            android:layout_height="@dimen/ab_icon_size_back"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+
+            android:src="@drawable/ic_settings_icon"
+            app:drawableColor="@color/ABIcon"
+            app:drawableStatePressed="@color/ABIconPressed" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llSearchAndFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/abLayout"
+        android:orientation="vertical">
+
+        <com.kizema.johnsnow.colornotes.appviews.AppEditText
+            android:id="@+id/etSearchText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Search text..."
+            android:text=""
+            android:textColor="@color/TextColorTitle"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:id="@+id/llFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.kizema.johnsnow.colornotes.appviews.DualProgressBar
+                android:id="@+id/ageProgressBar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:DualProgressBarMin="0"
+                app:DualProgressBarMax="1000"
+                app:ValLeft="20"
+                app:ValRight="300"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvNotif"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llSearchAndFilter" />
+
+
+</RelativeLayout>

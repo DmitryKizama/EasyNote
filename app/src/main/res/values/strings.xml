@@ -7,5 +7,6 @@
     <string name="signin">OK</string>
     <string name="cancel">Cancel</string>
     <string name="dialog_fire_missiles">Write new note</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>

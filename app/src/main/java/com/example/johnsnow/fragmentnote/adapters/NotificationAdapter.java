@@ -19,8 +19,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NoteViewHolder>
     private OnNotifClickListener listener;
 
     public interface OnNotifClickListener {
-        void onNotifLongClick(Note note, int position);
-
         void onItemDown(View v, int pos);
         void onTouch(MotionEvent me);
         void onItemClicked(Note note, int pos);

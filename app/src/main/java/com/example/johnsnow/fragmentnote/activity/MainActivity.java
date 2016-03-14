@@ -13,20 +13,15 @@ import android.widget.Toast;
 import com.example.johnsnow.fragmentnote.R;
 import com.example.johnsnow.fragmentnote.adapters.NotificationAdapter;
 import com.example.johnsnow.fragmentnote.control.NoteItemTouchListener;
-import com.example.johnsnow.fragmentnote.dialog.LongClickDialog;
 import com.example.johnsnow.fragmentnote.helper.Constant;
 import com.example.johnsnow.fragmentnote.model.Note;
 
 public class MainActivity extends FragmentActivity implements
-        LongClickDialog.OnDialogListener, NotificationAdapter.OnNotifClickListener,
-        NoteItemTouchListener.OnNoteItemTouchInActionListener
-// NewNoteDialog.OnDialogListener doesn't needed any more, because of AddActivity
-{
+        NotificationAdapter.OnNotifClickListener, NoteItemTouchListener.OnNoteItemTouchInActionListener {
 
     private Button btnAdd;
     private RecyclerView rvNotif;
     private NotificationAdapter notifAdap;
-    private LongClickDialog longClickDialog;
 
     private NoteItemTouchListener chatFeedTouchListener;
     private boolean scrollEnabled = true;
@@ -57,9 +52,6 @@ public class MainActivity extends FragmentActivity implements
 
         notifAdap.setOnNotifClickListener(this);
 
-        longClickDialog = new LongClickDialog(this);//when long pressed on word
-        longClickDialog.setListener(this);
-
         btnAdd = (Button) findViewById(R.id.addNote);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,8 +60,6 @@ public class MainActivity extends FragmentActivity implements
                 startActivityForResult(addNote, Constant.REQUES_CODE_ADD_NOTE);
             }
         });
-
-
     }
 
     @Override
@@ -78,13 +68,13 @@ public class MainActivity extends FragmentActivity implements
             return;
         }
         if (resultCode == RESULT_OK) {
-
             if (requestCode == Constant.REQUES_CODE_ADD_NOTE) {
                 int id = data.getIntExtra("NOTE", 0);
                 Note note = Note.findbyId(id);
                 notifAdap.addBottom(note);
 
             }
+            
             if (requestCode == Constant.REQUES_CODE_FOR_UPDATE) {
                 int position = data.getIntExtra("POS", 0);
                 int id = data.getIntExtra("NOTE", 0);
@@ -92,28 +82,6 @@ public class MainActivity extends FragmentActivity implements
                 notifAdap.update(position, note);
             }
         }
-    }
-
-    @Override
-    public void onDeleteText(Note note, int position) {
-        notifAdap.deleteElementAtPos(position);
-        note.delete();
-    }
-
-    @Override
-    public void onUpdateText(Note word, int position) {
-        Intent addNote = new Intent(MainActivity.this, AddActivity.class);
-        addNote.putExtra("POS", position);
-        addNote.putExtra("NOTE", word.getIdNumber());
-        startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
-//        updateDialog.show();
-//        UIhelper.showKeyboardForDialog(MainActivity.this, updateDialog.getEditText(), updateDialog);
-//        updateDialog.setPosition(position);
-    }
-
-    @Override
-    public void onNotifLongClick(Note word, int position) {
-        longClickDialog.show(word, position);
     }
 
     @Override

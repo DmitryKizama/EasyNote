@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.johnsnow.fragmentnote.appviews.AppRelativeLayout
+<com.kizema.johnsnow.colornotes.appviews.AppRelativeLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rlParent"
@@ -20,7 +20,7 @@
         android:text="TextView"
         android:textSize="30sp"/>
 
-    <com.example.johnsnow.fragmentnote.appviews.AppImageView
+    <com.kizema.johnsnow.colornotes.appviews.AppImageView
         android:id="@+id/ivRemove"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -31,7 +31,7 @@
         app:drawableStatePressed="@color/iconAccentPressed"
         android:src="@drawable/ic_cross"/>
 
-    <com.example.johnsnow.fragmentnote.appviews.AppImageView
+    <com.kizema.johnsnow.colornotes.appviews.AppImageView
         android:id="@+id/ivEdit"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -42,4 +42,4 @@
         app:drawableStatePressed="@color/iconAccentPressed"
         android:src="@drawable/ic_edit"/>
 
-</com.example.johnsnow.fragmentnote.appviews.AppRelativeLayout>
+</com.kizema.johnsnow.colornotes.appviews.AppRelativeLayout>

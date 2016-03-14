@@ -13,6 +13,9 @@ Search is by date (start/end), by text (descr/title), color
 RateActivity goes to Google Play only if mark is >= 4
 if less, we just say "Thank you for your rating"
 
-Tags - under question
+![alt tag](img/1.png)
+![alt tag](img/2.png)
+![alt tag](img/3.png)
+![alt tag](img/4.png)
 
 

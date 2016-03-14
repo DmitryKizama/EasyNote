@@ -16,4 +16,9 @@
     <color name="neutralBack">#FFFFFF</color>
     <color name="neutralBackPressed">#FAFAFA</color>
 
+    <color name="abBack">#EF8F00</color>
+    <color name="ABIcon">#111110</color>
+    <color name="ABIconPressed">#5B5B5B</color>
+
+
 </resources>

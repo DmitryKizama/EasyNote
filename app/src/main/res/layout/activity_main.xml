@@ -1,9 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/abLayout"
+        android:layout_width="match_parent"
+        android:background="@color/abBack"
+        android:layout_height="?android:attr/actionBarSize">
+
+        <com.kizema.johnsnow.colornotes.appviews.AppImageView
+            android:id="@+id/ivSwitchView"
+            android:layout_width="@dimen/ab_icon_size_back"
+            android:layout_height="@dimen/ab_icon_size_back"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+
+            android:src="@drawable/ic_view_switcher"
+            app:drawableColor="@color/ABIcon"
+            app:drawableStatePressed="@color/ABIconPressed"/>
+
+        <com.kizema.johnsnow.colornotes.appviews.AppTextView
+            android:text="Colorful Notes"
+            android:id="@+id/tvABTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textColor="@color/ABIcon"
+            android:layout_centerInParent="true"/>
+
+        <com.kizema.johnsnow.colornotes.appviews.AppImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="@dimen/ab_icon_size_back"
+            android:layout_height="@dimen/ab_icon_size_back"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:layout_alignParentRight="true"
+
+            android:src="@drawable/ic_settings_icon"
+            app:drawableColor="@color/ABIcon"
+            app:drawableStatePressed="@color/ABIconPressed"/>
+
+        <com.kizema.johnsnow.colornotes.appviews.AppImageView
+            android:id="@+id/ivSettings"
+            android:layout_width="@dimen/ab_icon_size_back"
+            android:layout_height="@dimen/ab_icon_size_back"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+
+            android:layout_toLeftOf="@id/ivSearch"
+
+            android:src="@drawable/ic_set_icon"
+            app:drawableColor="@color/ABIcon"
+            app:drawableStatePressed="@color/ABIconPressed"/>
+
+    </RelativeLayout>
+
 
     <Button
         android:layout_width="match_parent"
@@ -16,6 +72,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvNotif"
+        android:layout_below="@id/abLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/addNote"/>

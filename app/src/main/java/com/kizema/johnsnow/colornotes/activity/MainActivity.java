@@ -2,7 +2,6 @@ package com.kizema.johnsnow.colornotes.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
@@ -26,9 +25,13 @@ public class MainActivity extends BaseActivity implements
     private NoteItemTouchListener chatFeedTouchListener;
     private boolean scrollEnabled = true;
 
+    private View ivSearch, ivSettings, ivSwitchView;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initActionBar();
 
         rvNotif = (RecyclerView) findViewById(R.id.rvNotif);
         chatFeedTouchListener = new NoteItemTouchListener(this);
@@ -58,6 +61,33 @@ public class MainActivity extends BaseActivity implements
             public void onClick(View v) {
                 Intent addNote = new Intent(MainActivity.this, AddActivity.class);
                 startActivityForResult(addNote, Constant.REQUES_CODE_ADD_NOTE);
+            }
+        });
+    }
+
+    private void initActionBar(){
+        ivSearch = findViewById(R.id.ivSearch);
+        ivSettings = findViewById(R.id.ivSettings);
+        ivSwitchView = findViewById(R.id.ivSwitchView);
+
+        ivSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        ivSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        ivSwitchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

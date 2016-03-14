@@ -3,16 +3,15 @@ package com.kizema.johnsnow.colornotes.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.kizema.johnsnow.colornotes.R;
-import com.kizema.johnsnow.colornotes.helper.UIhelper;
+import com.kizema.johnsnow.colornotes.helper.UIHelper;
 import com.kizema.johnsnow.colornotes.model.Note;
 
-public class AddActivity extends FragmentActivity {
+public class AddActivity extends BaseActivity {
 
     public static final String POS = "POS";
 
@@ -29,7 +28,7 @@ public class AddActivity extends FragmentActivity {
         getIntentInfo();
 
         etNote = (EditText) findViewById(R.id.etNote);
-        UIhelper.showKeyboard(AddActivity.this, etNote);
+        UIHelper.showKeyboard(AddActivity.this, etNote);
         if (note != null) {
             etNote.setText(note.getName());
         }

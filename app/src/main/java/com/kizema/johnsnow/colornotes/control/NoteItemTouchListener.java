@@ -5,10 +5,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.kizema.johnsnow.colornotes.helper.UIhelper;
+import com.kizema.johnsnow.colornotes.helper.UIHelper;
 
 public class NoteItemTouchListener implements View.OnTouchListener {
-    private static final int MOVE_DIST = UIhelper.getPixel(80);
+    private static final int MOVE_DIST = UIHelper.getPixel(80);
     private final int DURATION = 200;
 
     private boolean swipeBegin = false;

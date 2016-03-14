@@ -9,12 +9,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-public class UIhelper {
+public class UIHelper {
     private static int height;
     private static int width;
     private static DisplayMetrics metrics;
 
     private static Context appContext;
+    public static int keyboardHeight;
 
 
     public static void init(Context c){
@@ -24,6 +25,7 @@ public class UIhelper {
         width = ((WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth();
 
         metrics = appContext.getResources().getDisplayMetrics();
+        keyboardHeight = getPixel(215);
     }
 
 
@@ -78,4 +80,12 @@ public class UIhelper {
         return (int)(px / metrics.density);
     }
 
+
+    public static void setKeyboardHeight(int h){
+        keyboardHeight = h;
+    }
+
+    public static int getKeyboardHeight(){
+        return keyboardHeight;
+    }
 }

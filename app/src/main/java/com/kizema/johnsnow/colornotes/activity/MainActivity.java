@@ -16,7 +16,7 @@ import com.kizema.johnsnow.colornotes.control.NoteItemTouchListener;
 import com.kizema.johnsnow.colornotes.helper.Constant;
 import com.kizema.johnsnow.colornotes.model.Note;
 
-public class MainActivity extends FragmentActivity implements
+public class MainActivity extends BaseActivity implements
         NotificationAdapter.OnNotifClickListener, NoteItemTouchListener.OnNoteItemTouchInActionListener {
 
     private Button btnAdd;

@@ -9,13 +9,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kizema.johnsnow.colornotes.R;
-import com.kizema.johnsnow.colornotes.helper.UIhelper;
+import com.kizema.johnsnow.colornotes.helper.UIHelper;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder {
 
-    private static final int MOVE_DIST = UIhelper.getPixel(80);
-    private static final int OFFSET = UIhelper.getPixel(30);
-    private static final int OFFSET_CLICK = UIhelper.getPixel(5);
+    private static final int MOVE_DIST = UIHelper.getPixel(80);
+    private static final int OFFSET = UIHelper.getPixel(30);
+    private static final int OFFSET_CLICK = UIHelper.getPixel(5);
 
 
 
@@ -62,10 +62,10 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         });
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivRemove.getLayoutParams();
-        params.leftMargin = UIhelper.getW() + MOVE_DIST;
+        params.leftMargin = UIHelper.getW() + MOVE_DIST;
 
         ViewGroup.LayoutParams p = itemView.getLayoutParams();
-        p.width = UIhelper.getW() + MOVE_DIST * 2;
+        p.width = UIHelper.getW() + MOVE_DIST * 2;
         itemView.setLayoutParams(p);
     }
 

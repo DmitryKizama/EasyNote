@@ -61,6 +61,10 @@ public abstract class AppearDisappearControl {
         return firstState;
     }
 
+    public void setFirstState(boolean f){
+        this.firstState = f;
+    }
+
     public abstract int getSecondSTateDrawableId();
     public abstract int getFirstStateDrawableId();
     public abstract int getColor();
@@ -68,5 +72,9 @@ public abstract class AppearDisappearControl {
 
     public int getColor(int color){
         return App.getAppContext().getResources().getColor(color);
+    }
+
+    public void performClick(){
+        ivSubject.performClick();
     }
 }

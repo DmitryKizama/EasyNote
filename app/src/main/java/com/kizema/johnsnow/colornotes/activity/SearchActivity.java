@@ -38,6 +38,8 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
 
     protected NotesRecyclerViewController notesFrag;
 
+    private boolean isKeyboardOpened = false;
+
     private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 
     private LinearLayout llFilter;
@@ -234,10 +236,7 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
 
     @Override
     public void onSoftKeyboardShown() {
-//        if (filterAppearDisappearControl.isFirstState()){
-//            changeFilterState();
-//        }
-
+        isKeyboardOpened = true;
         notesFrag.rvNotif.getLayoutParams().height -= UIHelper.getKeyboardHeight();
         Log.d("YY", "SHOW Change :: " + UIHelper.getKeyboardHeight());
         Log.i("YY", "H :: " +  notesFrag.rvNotif.getLayoutParams().height);
@@ -246,6 +245,7 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
 
     @Override
     public void onSoftKeyboardHidden() {
+        isKeyboardOpened = false;
         notesFrag.rvNotif.getLayoutParams().height += UIHelper.getKeyboardHeight();
         Log.d("YY", "HIDE Change :: " + UIHelper.getKeyboardHeight());
         Log.i("YY", "H :: " +  notesFrag.rvNotif.getLayoutParams().height);
@@ -255,11 +255,12 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
     @Override
     public void onBackPressed() {
 
-        if (!searchAppearDisappearControl.isFirstState()){
-            openSearch();
-            return;
-        }
-
-        super.onBackPressed();
+        //TODO FIX close keyboard and search if opened
+//        if (isKeyboardOpened){
+//            searchAppearDisappearControl.performClick();
+//            return;
+//        }
+//
+//        super.onBackPressed();
     }
 }

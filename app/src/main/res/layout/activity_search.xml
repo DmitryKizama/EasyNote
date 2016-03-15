@@ -150,7 +150,7 @@
                 android:layout_toRightOf="@id/ivSettings"
                 android:gravity="center"
                 android:hint="Search for..."
-                android:imeOptions="actionDone"
+                android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"
                 android:minWidth="100dp"

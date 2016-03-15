@@ -1,69 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentPanel"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/abLayout"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/abBack">
-
-        <com.kizema.johnsnow.colornotes.appviews.AppImageView
-            android:id="@+id/ivBack"
-            android:layout_width="@dimen/ab_icon_size_back"
-            android:layout_height="@dimen/ab_icon_size_back"
-            android:layout_centerVertical="true"
-            android:scaleType="center"
-
-            android:src="@drawable/ic_back_arrow"
-            app:drawableColor="@color/ABIcon"
-            app:drawableStatePressed="@color/ABIconPressed" />
-
-        <com.kizema.johnsnow.colornotes.appviews.AppEditText
-            android:id="@+id/tvABTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:gravity="center"
-            android:hint="Search for..."
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1"
-            android:minWidth="100dp"
-            android:text=""
-            android:textColor="@color/ABIcon"
-            android:textSize="18dp" />
-
-        <com.kizema.johnsnow.colornotes.appviews.AppImageView
-            android:id="@+id/ivFilter"
-            android:layout_width="@dimen/ab_icon_size_back"
-            android:layout_height="@dimen/ab_icon_size_back"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleType="center"
-
-            android:src="@drawable/ic_settings_icon"
-            app:drawableColor="@color/ABIcon"
-            app:drawableStatePressed="@color/ABIconPressed" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/parent"
-        android:layout_below="@id/abLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/llFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="?android:attr/actionBarSize"
             android:orientation="vertical">
 
             <com.kizema.johnsnow.colornotes.appviews.AppTextView
@@ -99,20 +52,76 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvColors"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="300dp">
 
             </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 
-        <fragment
-            android:id="@+id/notesFrag"
-            android:name="com.kizema.johnsnow.colornotes.activity.NotesFragment"
+
+        <RelativeLayout
+            android:id="@+id/abLayout"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/llFilter" />
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/abBack">
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:id="@+id/ivBack"
+                android:layout_width="@dimen/ab_icon_size_back"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_centerVertical="true"
+                android:scaleType="center"
+
+                android:src="@drawable/ic_back_arrow"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppEditText
+                android:id="@+id/tvABTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:gravity="center"
+                android:hint="Search for..."
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="100dp"
+                android:text=""
+                android:textColor="@color/ABIcon"
+                android:textSize="18dp" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:id="@+id/ivFilter"
+                android:layout_width="@dimen/ab_icon_size_back"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="center"
+
+                android:src="@drawable/ic_settings_icon"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 
-</RelativeLayout>
+    <!--<fragment-->
+    <!--android:id="@+id/notesFrag"-->
+    <!--android:name="com.kizema.johnsnow.colornotes.activity.NotesFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_below="@id/llFilter" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvNotif"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

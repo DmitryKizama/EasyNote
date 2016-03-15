@@ -7,24 +7,24 @@ import android.view.animation.Transformation;
 /**
  * Created by somename on 14.03.2016.
  */
-public class ResizeWidthAnimation extends Animation{
-    private int mWidth;
-    private int mStartWidth;
+public class ResizeHeightAnimation extends Animation{
+    private int mHeight;
+    private int mStartHeight;
     private View mView;
 
-    public ResizeWidthAnimation(View view, int width)
+    public ResizeHeightAnimation(View view, int height)
     {
         mView = view;
-        mWidth = width;
-        mStartWidth = view.getWidth();
+        mHeight = height;
+        mStartHeight = view.getHeight();
     }
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t)
     {
-        int newWidth = mStartWidth + (int) ((mWidth - mStartWidth) * interpolatedTime);
+        int newHeight = mStartHeight + (int) ((mHeight - mStartHeight) * interpolatedTime);
 
-        mView.getLayoutParams().width = newWidth;
+        mView.getLayoutParams().height = newHeight;
         mView.requestLayout();
     }
 

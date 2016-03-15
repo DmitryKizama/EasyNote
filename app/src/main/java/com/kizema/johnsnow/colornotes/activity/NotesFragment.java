@@ -1,16 +1,11 @@
 package com.kizema.johnsnow.colornotes.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.kizema.johnsnow.colornotes.R;
@@ -19,7 +14,7 @@ import com.kizema.johnsnow.colornotes.control.NoteItemTouchListener;
 import com.kizema.johnsnow.colornotes.helper.Constant;
 import com.kizema.johnsnow.colornotes.model.Note;
 
-public class NotesFragment extends Fragment implements NoteItemTouchListener.OnNoteItemTouchInActionListener,
+public class NotesFragment implements NoteItemTouchListener.OnNoteItemTouchInActionListener,
         NotificationAdapter.OnNotifClickListener{
 
     public RecyclerView rvNotif;
@@ -28,56 +23,60 @@ public class NotesFragment extends Fragment implements NoteItemTouchListener.OnN
 
     private boolean scrollEnabled = true;
 
-    private ViewGroup chatFragParent;
+//    private ViewGroup chatFragParent;
 
     private OnNoteFragInterectionCallback onNoteInterectionCallback;
+    private BaseActivity activity;
 
     public interface OnNoteFragInterectionCallback {
         boolean isRecyclerViewStable();
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        chatFragParent = (ViewGroup) inflater.inflate(R.layout.fragment_note, container, false);
-        return chatFragParent;
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        chatFragParent = (ViewGroup) inflater.inflate(R.layout.fragment_note, container, false);
+//        return chatFragParent;
+//    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        init();
-    }
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        init();
+//    }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        try {
-            onNoteInterectionCallback = (OnNoteFragInterectionCallback) getActivity();
-        } catch (ClassCastException ex){
-            Log.e("ERR", "Holding activity must implement OnNoteInterectionCallback");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        onNoteInterectionCallback = null;
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//
+//        try {
+//            onNoteInterectionCallback = (OnNoteFragInterectionCallback) getActivity();
+//        } catch (ClassCastException ex){
+//            Log.e("ERR", "Holding activity must implement OnNoteInterectionCallback");
+//        }
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        onNoteInterectionCallback = null;
+//    }
 
     public void update(){
         notifAdap.update(Note.getAll());
     }
 
-    private void init(){
-        rvNotif = (RecyclerView) chatFragParent.findViewById(R.id.rvNotif);
+    public void init(BaseActivity activity, OnNoteFragInterectionCallback onNoteFragInterectionCallback){
+        this.onNoteInterectionCallback = onNoteFragInterectionCallback;
+        this.activity = activity;
+
+        rvNotif = (RecyclerView) activity.findViewById(R.id.rvNotif);
         chatFeedTouchListener = new NoteItemTouchListener(this);
 
-        notifAdap = new NotificationAdapter(getActivity(), Note.getAll());
+        notifAdap = new NotificationAdapter(activity, Note.getAll());
         rvNotif.setAdapter(notifAdap);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false){
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false){
             @Override
             public boolean canScrollVertically() {
                 if (!scrollEnabled){
@@ -112,7 +111,7 @@ public class NotesFragment extends Fragment implements NoteItemTouchListener.OnN
     @Override
     public void onItemClicked(Note note, int pos) {
         //TODO this is called when we single click on Note item
-        Toast.makeText(getActivity(), "Clicked : " + note.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Clicked : " + note.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -123,13 +122,12 @@ public class NotesFragment extends Fragment implements NoteItemTouchListener.OnN
 
     @Override
     public void itemEditClicked(Note note, int pos) {
-        Intent addNote = new Intent(getActivity(), AddActivity.class);
+        Intent addNote = new Intent(activity, AddActivity.class);
         addNote.putExtra("POS", pos);
         addNote.putExtra("NOTE", note.getIdNumber());
-        startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
+        activity.startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
     }
 
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (resultCode == Activity.RESULT_OK) {
@@ -141,7 +139,5 @@ public class NotesFragment extends Fragment implements NoteItemTouchListener.OnN
                 notifAdap.update(position, note);
             }
         }
-
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

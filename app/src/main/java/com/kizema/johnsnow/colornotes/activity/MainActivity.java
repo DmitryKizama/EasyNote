@@ -23,7 +23,8 @@ public class MainActivity extends BaseActivity implements NotesFragment.OnNoteFr
 
         initActionBar();
 
-        notesFrag = (NotesFragment) getFragmentManager().findFragmentById(R.id.notesFrag);
+        notesFrag = new NotesFragment();
+        notesFrag.init(this, this);
 
         btnAdd = (Button) findViewById(R.id.addNote);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +72,8 @@ public class MainActivity extends BaseActivity implements NotesFragment.OnNoteFr
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        notesFrag.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
             if (requestCode == Constant.REQUES_CODE_ADD_NOTE) {

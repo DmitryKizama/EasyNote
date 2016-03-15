@@ -14,7 +14,7 @@ import com.kizema.johnsnow.colornotes.control.NoteItemTouchListener;
 import com.kizema.johnsnow.colornotes.helper.Constant;
 import com.kizema.johnsnow.colornotes.model.Note;
 
-public class NotesFragment implements NoteItemTouchListener.OnNoteItemTouchInActionListener,
+public class NotesRecyclerViewController implements NoteItemTouchListener.OnNoteItemTouchInActionListener,
         NotificationAdapter.OnNotifClickListener{
 
     public RecyclerView rvNotif;
@@ -23,53 +23,25 @@ public class NotesFragment implements NoteItemTouchListener.OnNoteItemTouchInAct
 
     private boolean scrollEnabled = true;
 
-//    private ViewGroup chatFragParent;
-
-    private OnNoteFragInterectionCallback onNoteInterectionCallback;
+    private OnNoteRVInterectionCallback onNoteInterectionCallback;
     private BaseActivity activity;
 
-    public interface OnNoteFragInterectionCallback {
+    public interface OnNoteRVInterectionCallback {
         boolean isRecyclerViewStable();
     }
-
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        chatFragParent = (ViewGroup) inflater.inflate(R.layout.fragment_note, container, false);
-//        return chatFragParent;
-//    }
-
-//    @Override
-//    public void onActivityCreated(Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        init();
-//    }
-
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//
-//        try {
-//            onNoteInterectionCallback = (OnNoteFragInterectionCallback) getActivity();
-//        } catch (ClassCastException ex){
-//            Log.e("ERR", "Holding activity must implement OnNoteInterectionCallback");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        onNoteInterectionCallback = null;
-//    }
 
     public void update(){
         notifAdap.update(Note.getAll());
     }
 
-    public void init(BaseActivity activity, OnNoteFragInterectionCallback onNoteFragInterectionCallback){
-        this.onNoteInterectionCallback = onNoteFragInterectionCallback;
+    public NotesRecyclerViewController(BaseActivity activity, OnNoteRVInterectionCallback onNoteRVInterectionCallback){
+        this.onNoteInterectionCallback = onNoteRVInterectionCallback;
         this.activity = activity;
 
+        init();
+    }
+
+    private void init(){
         rvNotif = (RecyclerView) activity.findViewById(R.id.rvNotif);
         chatFeedTouchListener = new NoteItemTouchListener(this);
 
@@ -128,16 +100,22 @@ public class NotesFragment implements NoteItemTouchListener.OnNoteItemTouchInAct
         activity.startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    /**
+     * @return true if controoller worked out event, false - otherwise
+     */
+    public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resultCode == Activity.RESULT_OK) {
-
-            if (requestCode == Constant.REQUES_CODE_FOR_UPDATE) {
+        if (requestCode == Constant.REQUES_CODE_FOR_UPDATE) {
+            if (resultCode == Activity.RESULT_OK) {
                 int position = data.getIntExtra("POS", 0);
                 int id = data.getIntExtra("NOTE", 0);
                 Note note = Note.findbyId(id);
                 notifAdap.update(position, note);
             }
+
+            return true;
         }
+
+        return false;
     }
 }

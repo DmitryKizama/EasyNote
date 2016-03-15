@@ -1,10 +1,10 @@
 package com.kizema.johnsnow.colornotes.activity;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,7 +15,9 @@ import com.kizema.johnsnow.colornotes.R;
 import com.kizema.johnsnow.colornotes.adapters.ColorsAdapter;
 import com.kizema.johnsnow.colornotes.anim.ResizeHeightAnimation;
 import com.kizema.johnsnow.colornotes.appviews.DualProgressBar;
+import com.kizema.johnsnow.colornotes.control.AppearDisappearControl;
 import com.kizema.johnsnow.colornotes.control.FilterAppearDisappearControl;
+import com.kizema.johnsnow.colornotes.control.SearchAppearDisappearControl;
 import com.kizema.johnsnow.colornotes.helper.UIHelper;
 import com.kizema.johnsnow.colornotes.model.UserColor;
 
@@ -25,16 +27,21 @@ import java.util.Date;
 import java.util.List;
 
 public class SearchActivity extends BaseActivity implements DualProgressBar.OnDualProgressListener,
-        ColorsAdapter.OnColorCLick, NotesFragment.OnNoteFragInterectionCallback {
+        ColorsAdapter.OnColorCLick, NotesRecyclerViewController.OnNoteRVInterectionCallback, BaseActivity.OnSoftKeyboardListener {
 
-    private View ivBack;
-    private FilterAppearDisappearControl filterAppearDisappearControl;
-    private EditText tvABTitle;
+    private static final int FILTER_ANIM_DURATION = 300;
 
-    protected NotesFragment notesFrag;
+    private AppearDisappearControl filterAppearDisappearControl, searchAppearDisappearControl;
+
+    private EditText etABTitle;
+    private TextView tvTitle;
+
+    protected NotesRecyclerViewController notesFrag;
+
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 
     private LinearLayout llFilter;
-    private int filterH, filterY;
+    private int filterH;
 
     private DualProgressBar dateProgressBar;
     private RecyclerView rvColors;
@@ -52,11 +59,25 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         leftDateMs = new Date(114, 10, 12).getTime();
         rightDateMs = new Date().getTime();
 
-        notesFrag = new NotesFragment();
-        notesFrag.init(this, this);
+        notesFrag = new NotesRecyclerViewController(this, this);
+        notesFrag.rvNotif.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                notesFrag.rvNotif.getLayoutParams().height = notesFrag.rvNotif.getHeight();
+                notesFrag.rvNotif.removeOnLayoutChangeListener(this);
+            }
+        });
 
         initActionBar();
         initFilter();
+
+        addOnSoftKeyboardListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        removeOnSoftKeyboardListener(this);
     }
 
     private void initFilter(){
@@ -64,8 +85,9 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         llFilter.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                //we save filter height after layout occured
                 filterH = llFilter.getHeight();
-                filterY = (int) llFilter.getY();
+                llFilter.removeOnLayoutChangeListener(this);
             }
         });
         initDateProgressbar();
@@ -86,9 +108,9 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
 
         int amount = userColors.size();
         int rows = amount / cols + (amount % cols > 0 ? 1 : 0);
-        int h = rows * UIHelper.getPixel(50);
+        int rvColorHeight = rows * UIHelper.getPixel(50);
 
-        rvColors.getLayoutParams().height = h;
+        rvColors.getLayoutParams().height = rvColorHeight;
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, cols, GridLayoutManager.VERTICAL, false);
         rvColors.setLayoutManager(mLayoutManager);
         rvColors.setHasFixedSize(true);
@@ -103,93 +125,78 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
     }
 
     private void initActionBar(){
-        ivBack = findViewById(R.id.ivBack);
+        View ivSwitchView = findViewById(R.id.ivSwitchView);
+        View ivSettings = findViewById(R.id.ivSettings);
+        ImageView ivSearch = (ImageView) findViewById(R.id.ivSearch);
         ImageView ivFilter = (ImageView) findViewById(R.id.ivFilter);
-        tvABTitle = (EditText) findViewById(R.id.tvABTitle);
-        View abLayout = findViewById(R.id.abLayout);
-
+        etABTitle = (EditText) findViewById(R.id.etABTitle);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
 
         filterAppearDisappearControl = new FilterAppearDisappearControl(ivFilter);
 
-        ivBack.setOnClickListener(new View.OnClickListener() {
+        searchAppearDisappearControl = new SearchAppearDisappearControl(ivSearch);
+
+        ivSwitchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+
+            }
+        });
+
+        ivSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
         filterAppearDisappearControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFiletr();
+                changeFilterState();
+            }
+        });
+
+        searchAppearDisappearControl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSearch();
             }
         });
     }
 
-    private void openFiletr(){
-        //open filter
+    private void openSearch(){
+        if (!searchAppearDisappearControl.isFirstState()){
+            etABTitle.setVisibility(View.VISIBLE);
+            UIHelper.showKeyboard(this, etABTitle);
+            tvTitle.setVisibility(View.INVISIBLE);
+        } else {
+            etABTitle.setVisibility(View.INVISIBLE);
+            hideKeyBoard();
+            tvTitle.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void changeFilterState(){
         if (!filterIsOpened){
-            llFilter.animate().translationY(0).setDuration(500).setListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            }).start();
-
-            notesFrag.rvNotif.animate().translationY(0).setDuration(500).start();
+            //open filter
+            llFilter.animate().translationY(0).setDuration(FILTER_ANIM_DURATION).start();
+            notesFrag.rvNotif.animate().translationY(0).setDuration(FILTER_ANIM_DURATION).start();
             ResizeHeightAnimation anim = new ResizeHeightAnimation(notesFrag.rvNotif, notesFrag.rvNotif.getHeight() - filterH);
-            anim.setDuration(500);
+            anim.setDuration(FILTER_ANIM_DURATION);
             notesFrag.rvNotif.startAnimation(anim);
 
         } else {
-            notesFrag.rvNotif.animate().translationY(-filterH).setDuration(500).start();
+            //close filter
+            notesFrag.rvNotif.animate().translationY(-filterH).setDuration(FILTER_ANIM_DURATION).start();
             ResizeHeightAnimation anim = new ResizeHeightAnimation(notesFrag.rvNotif, notesFrag.rvNotif.getHeight() + filterH);
-            anim.setDuration(500);
+            anim.setDuration(FILTER_ANIM_DURATION);
             notesFrag.rvNotif.startAnimation(anim);
-
-            llFilter.animate().translationY(-filterH).setDuration(500).setListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            }).start();
-
+            llFilter.animate().translationY(-filterH).setDuration(FILTER_ANIM_DURATION).start();
         }
 
         filterIsOpened = !filterIsOpened;
-
     }
-
-    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 
     @Override
     public void OnColorPicked(UserColor color) {
@@ -206,7 +213,7 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
     }
 
     @Override
-    public void onDoneEdit() {
+    public void onDoneDateEdit() {
         //do search
     }
 
@@ -218,8 +225,41 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        notesFrag.onActivityResult(requestCode, resultCode, data);
+        if (notesFrag.onActivityResult(requestCode, resultCode, data)){
+            return;
+        }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onSoftKeyboardShown() {
+//        if (filterAppearDisappearControl.isFirstState()){
+//            changeFilterState();
+//        }
+
+        notesFrag.rvNotif.getLayoutParams().height -= UIHelper.getKeyboardHeight();
+        Log.d("YY", "SHOW Change :: " + UIHelper.getKeyboardHeight());
+        Log.i("YY", "H :: " +  notesFrag.rvNotif.getLayoutParams().height);
+        notesFrag.rvNotif.requestLayout();
+    }
+
+    @Override
+    public void onSoftKeyboardHidden() {
+        notesFrag.rvNotif.getLayoutParams().height += UIHelper.getKeyboardHeight();
+        Log.d("YY", "HIDE Change :: " + UIHelper.getKeyboardHeight());
+        Log.i("YY", "H :: " +  notesFrag.rvNotif.getLayoutParams().height);
+        notesFrag.rvNotif.requestLayout();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (!searchAppearDisappearControl.isFirstState()){
+            openSearch();
+            return;
+        }
+
+        super.onBackPressed();
     }
 }

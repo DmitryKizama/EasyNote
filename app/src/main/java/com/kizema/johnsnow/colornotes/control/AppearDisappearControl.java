@@ -15,26 +15,26 @@ public abstract class AppearDisappearControl {
     private Drawable closedDrawable, openedDrawable;
 
     private ImageView ivSubject;
-    private boolean opened;
+    private boolean firstState;
 
-    public AppearDisappearControl(ImageView ivSubject, boolean opened){
+    public AppearDisappearControl(ImageView ivSubject, boolean firstState){
         this.ivSubject = ivSubject;
-        this.opened = opened;
+        this.firstState = firstState;
 
         Map<Integer, Integer> map = new HashMap<>();
         map.put(android.R.attr.state_pressed, getPressedColor());
         closedDrawable = new ColorFilterStateDrawable(
-                ivSubject.getContext().getResources().getDrawable(getOpenedDrawableId()),
+                ivSubject.getContext().getResources().getDrawable(getSecondSTateDrawableId()),
                 getColor(),
                 map);
 
         openedDrawable = new ColorFilterStateDrawable(
-                ivSubject.getContext().getResources().getDrawable(getClosedDrawableId()),
+                ivSubject.getContext().getResources().getDrawable(getFirstStateDrawableId()),
                 getColor(),
                 map);
 
 
-        if(!opened){
+        if(!firstState){
             ivSubject.setImageDrawable(closedDrawable);
         } else {
             ivSubject.setImageDrawable(openedDrawable);
@@ -45,20 +45,24 @@ public abstract class AppearDisappearControl {
         ivSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (opened) {
+                if (firstState) {
                     ivSubject.setImageDrawable(closedDrawable);
                 } else {
                     ivSubject.setImageDrawable(openedDrawable);
                 }
 
-                opened = !opened;
+                firstState = !firstState;
                 listener.onClick(v);
             }
         });
     }
 
-    public abstract int getOpenedDrawableId();
-    public abstract int getClosedDrawableId();
+    public boolean isFirstState(){
+        return firstState;
+    }
+
+    public abstract int getSecondSTateDrawableId();
+    public abstract int getFirstStateDrawableId();
     public abstract int getColor();
     public abstract int getPressedColor();
 

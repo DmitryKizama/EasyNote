@@ -44,7 +44,7 @@ public class DualProgressBar  extends RelativeLayout {
 
     public interface OnDualProgressListener{
         void onProgressChanged(TextView tvSelected, float progressPersent);
-        void onDoneEdit();
+        void onDoneDateEdit();
     }
 
     public DualProgressBar(Context context) {
@@ -328,7 +328,7 @@ public class DualProgressBar  extends RelativeLayout {
             if (event.getAction() == MotionEvent.ACTION_CANCEL ||
                     event.getAction() == MotionEvent.ACTION_UP) {
                 if (onDualProgressListener != null) {
-                    onDualProgressListener.onDoneEdit();
+                    onDualProgressListener.onDoneDateEdit();
                 }
             }
 

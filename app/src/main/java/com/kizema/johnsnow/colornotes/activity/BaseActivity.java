@@ -109,6 +109,8 @@ public class BaseActivity extends FragmentActivity {
         }
     }
 
-
+    public void hideKeyBoard() {
+        UIHelper.hideKeyboard(this);
+    }
 
 }

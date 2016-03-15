@@ -9,11 +9,11 @@ import com.kizema.johnsnow.colornotes.R;
 import com.kizema.johnsnow.colornotes.helper.Constant;
 import com.kizema.johnsnow.colornotes.model.Note;
 
-public class MainActivity extends BaseActivity implements NotesFragment.OnNoteFragInterectionCallback {
+public class MainActivity extends BaseActivity implements NotesRecyclerViewController.OnNoteRVInterectionCallback {
 
     private Button btnAdd;
 
-    protected NotesFragment notesFrag;
+    protected NotesRecyclerViewController notesFrag;
 
     private View ivSearch, ivSettings, ivSwitchView;
 
@@ -23,8 +23,7 @@ public class MainActivity extends BaseActivity implements NotesFragment.OnNoteFr
 
         initActionBar();
 
-        notesFrag = new NotesFragment();
-        notesFrag.init(this, this);
+        notesFrag = new NotesRecyclerViewController(this, this);
 
         btnAdd = (Button) findViewById(R.id.addNote);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +71,9 @@ public class MainActivity extends BaseActivity implements NotesFragment.OnNoteFr
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        notesFrag.onActivityResult(requestCode, resultCode, data);
+        if (notesFrag.onActivityResult(requestCode, resultCode, data)){
+            return;
+        }
 
         if (resultCode == RESULT_OK) {
             if (requestCode == Constant.REQUES_CODE_ADD_NOTE) {

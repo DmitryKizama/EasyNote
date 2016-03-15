@@ -4,20 +4,20 @@ import android.widget.ImageView;
 
 import com.kizema.johnsnow.colornotes.R;
 
-public class FilterAppearDisappearControl extends AppearDisappearControl{
+public class SearchAppearDisappearControl extends AppearDisappearControl {
 
-    public FilterAppearDisappearControl(ImageView ivSubject) {
+    public SearchAppearDisappearControl(ImageView ivSubject) {
         super(ivSubject, true);
     }
 
     @Override
     public int getSecondSTateDrawableId() {
-        return R.drawable.ic_filter_shown;
+        return R.drawable.ic_cross;
     }
 
     @Override
     public int getFirstStateDrawableId() {
-        return  R.drawable.ic_no_fileter;
+        return R.drawable.ic_search;
     }
 
     @Override

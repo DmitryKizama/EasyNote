@@ -23,7 +23,7 @@
             app:drawableStatePressed="@color/ABIconPressed" />
 
         <com.kizema.johnsnow.colornotes.appviews.AppTextView
-            android:id="@+id/tvABTitle"
+            android:id="@+id/etABTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

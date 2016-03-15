@@ -67,32 +67,32 @@
             android:background="@color/abBack">
 
             <com.kizema.johnsnow.colornotes.appviews.AppImageView
-                android:id="@+id/ivBack"
+                android:id="@+id/ivSwitchView"
                 android:layout_width="@dimen/ab_icon_size_back"
                 android:layout_height="@dimen/ab_icon_size_back"
                 android:layout_centerVertical="true"
                 android:scaleType="center"
+                app:backgroundStateColor="@color/abBack"
+                app:backgroundStatePressed="@color/abBackPressed"
 
-                android:src="@drawable/ic_back_arrow"
+                android:src="@drawable/ic_view_switcher"
                 app:drawableColor="@color/ABIcon"
                 app:drawableStatePressed="@color/ABIconPressed" />
 
-            <com.kizema.johnsnow.colornotes.appviews.AppEditText
-                android:id="@+id/tvABTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="80dp"
-                android:gravity="center"
-                android:hint="Search for..."
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:maxLines="1"
-                android:minWidth="100dp"
-                android:text=""
-                android:textColor="@color/ABIcon"
-                android:textSize="18dp" />
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:id="@+id/ivSettings"
+                android:layout_width="@dimen/ab_icon_size_back"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/ivSwitchView"
+
+                android:scaleType="center"
+                app:backgroundStateColor="@color/abBack"
+                app:backgroundStatePressed="@color/abBackPressed"
+
+                android:src="@drawable/ic_set_icon"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
 
             <com.kizema.johnsnow.colornotes.appviews.AppImageView
                 android:id="@+id/ivFilter"
@@ -102,9 +102,61 @@
                 android:layout_centerVertical="true"
                 android:scaleType="center"
 
+                app:backgroundStateColor="@color/abBack"
+                app:backgroundStatePressed="@color/abBackPressed"
+
                 android:src="@drawable/ic_settings_icon"
                 app:drawableColor="@color/ABIcon"
                 app:drawableStatePressed="@color/ABIconPressed" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="@dimen/ab_icon_size_back"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_toLeftOf="@id/ivFilter"
+                android:layout_centerVertical="true"
+                android:scaleType="center"
+
+                app:backgroundStateColor="@color/abBack"
+                app:backgroundStatePressed="@color/abBackPressed"
+
+                android:src="@drawable/ic_search"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/ivSearch"
+                android:layout_toRightOf="@id/ivSettings"
+                android:gravity="center"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="100dp"
+                android:text="Colorful Notes"
+                android:textColor="@color/ABIcon"
+                android:textSize="18dp" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppEditText
+                android:id="@+id/etABTitle"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/ivSearch"
+                android:layout_toRightOf="@id/ivSettings"
+                android:gravity="center"
+                android:hint="Search for..."
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minWidth="100dp"
+                android:text=""
+                android:textColor="@color/ABIcon"
+                android:textSize="18dp" />
 
         </RelativeLayout>
 

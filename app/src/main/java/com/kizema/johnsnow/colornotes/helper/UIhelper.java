@@ -15,7 +15,7 @@ public class UIHelper {
     private static DisplayMetrics metrics;
 
     private static Context appContext;
-    public static int keyboardHeight;
+    public static int keyboardHeight; //comment
 
 
     public static void init(Context c){

@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity implements NotesRecyclerViewContr
             @Override
             public void onClick(View v) {
                 Intent addNote = new Intent(MainActivity.this, AddActivity.class);
-                startActivityForResult(addNote, Constant.REQUES_CODE_ADD_NOTE);
+                startActivityForResult(addNote, Constant.REQUES_CODE_ADD_NOTE);//comment
             }
         });
     }

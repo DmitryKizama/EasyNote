@@ -52,7 +52,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvColors"
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="wrap_content">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -158,8 +158,19 @@
                 android:textColor="@color/ABIcon"
                 android:textSize="18dp" />
 
+
+
         </RelativeLayout>
 
+        <com.kizema.johnsnow.colornotes.appviews.AppCircleImageView
+            android:id="@+id/btnAddNote"
+            android:layout_width="76dip"
+            android:layout_height="76dip"
+            android:src="@drawable/ic_plus"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:cb_color="#99CC00"
+            app:cb_pressedRingWidth="8dip" />
 
     </RelativeLayout>
 
@@ -170,6 +181,7 @@
     <!--android:layout_height="match_parent"-->
     <!--android:layout_alignParentBottom="true"-->
     <!--android:layout_below="@id/llFilter" />-->
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvNotif"

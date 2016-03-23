@@ -15,6 +15,9 @@ public class AddActivity extends BaseActivity {
 
     public static final String POS = "POS";
 
+    public static final int REQUES_CODE_ADD_NOTE = 1;
+    public static final int REQUES_CODE_FOR_UPDATE = 2;
+
     private Button btnAdd, btnCancel;
     private EditText etNote;
     private int position;

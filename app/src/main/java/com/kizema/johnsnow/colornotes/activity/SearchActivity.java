@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,7 +19,9 @@ import com.kizema.johnsnow.colornotes.appviews.DualProgressBar;
 import com.kizema.johnsnow.colornotes.control.AppearDisappearControl;
 import com.kizema.johnsnow.colornotes.control.FilterAppearDisappearControl;
 import com.kizema.johnsnow.colornotes.control.SearchAppearDisappearControl;
+import com.kizema.johnsnow.colornotes.helper.Constant;
 import com.kizema.johnsnow.colornotes.helper.UIHelper;
+import com.kizema.johnsnow.colornotes.model.Note;
 import com.kizema.johnsnow.colornotes.model.UserColor;
 
 import java.text.SimpleDateFormat;
@@ -35,6 +38,7 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
 
     private EditText etABTitle;
     private TextView tvTitle;
+    private ImageView btnAddNote;
 
     protected NotesRecyclerViewController notesFrag;
 
@@ -67,6 +71,15 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 notesFrag.rvNotif.getLayoutParams().height = notesFrag.rvNotif.getHeight();
                 notesFrag.rvNotif.removeOnLayoutChangeListener(this);
+            }
+        });
+
+        btnAddNote = (ImageView) findViewById(R.id.btnAddNote);
+        btnAddNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addNote = new Intent(SearchActivity.this, AddActivity.class);
+                startActivityForResult(addNote, AddActivity.REQUES_CODE_ADD_NOTE);//comment
             }
         });
 
@@ -229,6 +242,14 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (notesFrag.onActivityResult(requestCode, resultCode, data)){
             return;
+        }
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constant.REQUES_CODE_ADD_NOTE) {
+                int id = data.getIntExtra("NOTE", 0);
+                Note note = Note.findbyId(id);
+                notesFrag.notifAdap.addBottom(note);
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data);

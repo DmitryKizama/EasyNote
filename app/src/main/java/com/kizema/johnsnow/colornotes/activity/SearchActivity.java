@@ -6,7 +6,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -249,6 +248,7 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
                 int id = data.getIntExtra("NOTE", 0);
                 Note note = Note.findbyId(id);
                 notesFrag.notifAdap.addBottom(note);
+                //TODO scroll list to bottom
             }
         }
 

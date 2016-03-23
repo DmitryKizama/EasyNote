@@ -1,191 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/parentPanel"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:layout_height="fill_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/llFilter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?android:attr/actionBarSize"
-            android:orientation="vertical">
-
-            <com.kizema.johnsnow.colornotes.appviews.AppTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:maxLines="1"
-                android:text="Choose time range:"
-                android:textColor="@color/ABIcon"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <com.kizema.johnsnow.colornotes.appviews.DualProgressBar
-                android:id="@+id/ageProgressBar"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:DualProgressBarMax="1000"
-                app:DualProgressBarMin="0"
-                app:ValLeft="20"
-                app:ValRight="300" />
-
-            <com.kizema.johnsnow.colornotes.appviews.AppTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:maxLines="1"
-                android:minWidth="100dp"
-                android:text="Choose color:"
-                android:textColor="@color/ABIcon"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvColors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/parentPanel"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/abLayout"
-            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/abBack">
+            android:layout_height="wrap_content">
 
-            <com.kizema.johnsnow.colornotes.appviews.AppImageView
-                android:id="@+id/ivSwitchView"
-                android:layout_width="@dimen/ab_icon_size_back"
-                android:layout_height="@dimen/ab_icon_size_back"
-                android:layout_centerVertical="true"
-                android:scaleType="center"
-                app:backgroundStateColor="@color/abBack"
-                app:backgroundStatePressed="@color/abBackPressed"
-
-                android:src="@drawable/ic_view_switcher"
-                app:drawableColor="@color/ABIcon"
-                app:drawableStatePressed="@color/ABIconPressed" />
-
-            <com.kizema.johnsnow.colornotes.appviews.AppImageView
-                android:id="@+id/ivSettings"
-                android:layout_width="@dimen/ab_icon_size_back"
-                android:layout_height="@dimen/ab_icon_size_back"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/ivSwitchView"
-
-                android:scaleType="center"
-                app:backgroundStateColor="@color/abBack"
-                app:backgroundStatePressed="@color/abBackPressed"
-
-                android:src="@drawable/ic_set_icon"
-                app:drawableColor="@color/ABIcon"
-                app:drawableStatePressed="@color/ABIconPressed" />
-
-            <com.kizema.johnsnow.colornotes.appviews.AppImageView
-                android:id="@+id/ivFilter"
-                android:layout_width="@dimen/ab_icon_size_back"
-                android:layout_height="@dimen/ab_icon_size_back"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:scaleType="center"
-
-                app:backgroundStateColor="@color/abBack"
-                app:backgroundStatePressed="@color/abBackPressed"
-
-                android:src="@drawable/ic_settings_icon"
-                app:drawableColor="@color/ABIcon"
-                app:drawableStatePressed="@color/ABIconPressed" />
-
-            <com.kizema.johnsnow.colornotes.appviews.AppImageView
-                android:id="@+id/ivSearch"
-                android:layout_width="@dimen/ab_icon_size_back"
-                android:layout_height="@dimen/ab_icon_size_back"
-                android:layout_toLeftOf="@id/ivFilter"
-                android:layout_centerVertical="true"
-                android:scaleType="center"
-
-                app:backgroundStateColor="@color/abBack"
-                app:backgroundStatePressed="@color/abBackPressed"
-
-                android:src="@drawable/ic_search"
-                app:drawableColor="@color/ABIcon"
-                app:drawableStatePressed="@color/ABIconPressed" />
-
-            <com.kizema.johnsnow.colornotes.appviews.AppTextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/llFilter"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_toLeftOf="@id/ivSearch"
-                android:layout_toRightOf="@id/ivSettings"
-                android:gravity="center"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:maxLines="1"
-                android:minWidth="100dp"
-                android:text="Colorful Notes"
-                android:textColor="@color/ABIcon"
-                android:textSize="18dp" />
+                android:layout_marginTop="?android:attr/actionBarSize"
+                android:orientation="vertical">
 
-            <com.kizema.johnsnow.colornotes.appviews.AppEditText
-                android:id="@+id/etABTitle"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_toLeftOf="@id/ivSearch"
-                android:layout_toRightOf="@id/ivSettings"
-                android:gravity="center"
-                android:hint="Search for..."
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:maxLines="1"
-                android:minWidth="100dp"
-                android:text=""
-                android:textColor="@color/ABIcon"
-                android:textSize="18dp" />
+                <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:maxLines="1"
+                    android:text="Choose time range:"
+                    android:textColor="@color/ABIcon"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
+                <com.kizema.johnsnow.colornotes.appviews.DualProgressBar
+                    android:id="@+id/ageProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    app:DualProgressBarMax="1000"
+                    app:DualProgressBarMin="0"
+                    app:ValLeft="20"
+                    app:ValRight="300" />
+
+                <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:maxLines="1"
+                    android:minWidth="100dp"
+                    android:text="Choose color:"
+                    android:textColor="@color/ABIcon"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvColors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/abLayout"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_alignParentTop="true"
+                android:background="@color/abBack">
+
+                <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                    android:id="@+id/ivSwitchView"
+                    android:layout_width="@dimen/ab_icon_size_back"
+                    android:layout_height="@dimen/ab_icon_size_back"
+                    android:layout_centerVertical="true"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_view_switcher"
+                    app:backgroundStateColor="@color/abBack"
+
+                    app:backgroundStatePressed="@color/abBackPressed"
+                    app:drawableColor="@color/ABIcon"
+                    app:drawableStatePressed="@color/ABIconPressed" />
+
+                <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                    android:id="@+id/ivSettings"
+                    android:layout_width="@dimen/ab_icon_size_back"
+                    android:layout_height="@dimen/ab_icon_size_back"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/ivSwitchView"
+
+                    android:scaleType="center"
+                    android:src="@drawable/ic_set_icon"
+                    app:backgroundStateColor="@color/abBack"
+
+                    app:backgroundStatePressed="@color/abBackPressed"
+                    app:drawableColor="@color/ABIcon"
+                    app:drawableStatePressed="@color/ABIconPressed" />
+
+                <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                    android:id="@+id/ivFilter"
+                    android:layout_width="@dimen/ab_icon_size_back"
+                    android:layout_height="@dimen/ab_icon_size_back"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="center"
+
+                    android:src="@drawable/ic_settings_icon"
+                    app:backgroundStateColor="@color/abBack"
+
+                    app:backgroundStatePressed="@color/abBackPressed"
+                    app:drawableColor="@color/ABIcon"
+                    app:drawableStatePressed="@color/ABIconPressed" />
+
+                <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                    android:id="@+id/ivSearch"
+                    android:layout_width="@dimen/ab_icon_size_back"
+                    android:layout_height="@dimen/ab_icon_size_back"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/ivFilter"
+                    android:scaleType="center"
+
+                    android:src="@drawable/ic_search"
+                    app:backgroundStateColor="@color/abBack"
+
+                    app:backgroundStatePressed="@color/abBackPressed"
+                    app:drawableColor="@color/ABIcon"
+                    app:drawableStatePressed="@color/ABIconPressed" />
+
+                <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@id/ivSearch"
+                    android:layout_toRightOf="@id/ivSettings"
+                    android:gravity="center"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:minWidth="100dp"
+                    android:text="Colorful Notes"
+                    android:textColor="@color/ABIcon"
+                    android:textSize="18dp" />
+
+                <com.kizema.johnsnow.colornotes.appviews.AppEditText
+                    android:id="@+id/etABTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@id/ivSearch"
+                    android:layout_toRightOf="@id/ivSettings"
+                    android:gravity="center"
+                    android:hint="Search for..."
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:minWidth="100dp"
+                    android:text=""
+                    android:textColor="@color/ABIcon"
+                    android:textSize="18dp"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
 
 
         </RelativeLayout>
 
-        <com.kizema.johnsnow.colornotes.appviews.AppCircleImageView
-            android:id="@+id/btnAddNote"
-            android:layout_width="76dip"
-            android:layout_height="76dip"
-            android:src="@drawable/ic_plus"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            app:cb_color="#99CC00"
-            app:cb_pressedRingWidth="8dip" />
-
-    </RelativeLayout>
-
-    <!--<fragment-->
-    <!--android:id="@+id/notesFrag"-->
-    <!--android:name="com.kizema.johnsnow.colornotes.activity.NotesFragment"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_below="@id/llFilter" />-->
+        <!--<fragment-->
+        <!--android:id="@+id/notesFrag"-->
+        <!--android:name="com.kizema.johnsnow.colornotes.activity.NotesFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_below="@id/llFilter" />-->
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvNotif"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvNotif"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</LinearLayout>
+    </LinearLayout>
+
+    <com.kizema.johnsnow.colornotes.appviews.AppCircleImageView
+        android:id="@+id/btnAddNote"
+        android:layout_width="76dip"
+        android:layout_height="76dip"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_plus"
+        app:cb_color="#99CC00"
+        app:cb_pressedRingWidth="8dip" />
+
+
+</RelativeLayout>

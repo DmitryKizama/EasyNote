@@ -65,6 +65,7 @@ public class AddActivity extends BaseActivity {
         Intent intent = new Intent();
         intent.putExtra("NOTE", note.getIdNumber());
         intent.putExtra("POS", position);
+        UIHelper.hideKeyboard(this);
         setResult(RESULT_OK, intent);
         finish();
     }

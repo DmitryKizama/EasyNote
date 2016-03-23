@@ -1,35 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="beforeDescendants">
+
+    <RelativeLayout
+        android:id="@+id/abLayoutInAddActivity"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/abBack">
+
+        <com.kizema.johnsnow.colornotes.appviews.AppImageView
+            android:id="@+id/ivCancelViewInAddActivity"
+            android:layout_width="@dimen/ab_icon_size_back"
+            android:layout_height="@dimen/ab_icon_size_back"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_cross"
+            app:backgroundStateColor="@color/abBack"
+
+            app:backgroundStatePressed="@color/abBackPressed"
+            app:drawableColor="@color/ABIcon"
+            app:drawableStatePressed="@color/ABIconPressed" />
+
+        <com.kizema.johnsnow.colornotes.appviews.AppImageView
+            android:id="@+id/ivSettingsInAddActivity"
+            android:layout_width="@dimen/ab_icon_size_back"
+            android:layout_height="@dimen/ab_icon_size_back"
+            android:layout_centerVertical="true"
+
+            android:scaleType="center"
+            android:src="@drawable/ic_set_icon"
+            app:backgroundStateColor="@color/abBack"
+
+            app:backgroundStatePressed="@color/abBackPressed"
+            app:drawableColor="@color/ABIcon"
+            app:drawableStatePressed="@color/ABIconPressed" />
+
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/etNote"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/abLayoutInAddActivity" />
+
+    <EditText
+        android:id="@+id/etNoteDescription"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/etNote"
-        android:orientation="horizontal">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancel" />
-
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Ok" />
-    </LinearLayout>
+    <com.kizema.johnsnow.colornotes.appviews.AppCircleImageView
+        android:id="@+id/btnAdd"
+        android:layout_width="76dip"
+        android:layout_height="76dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_plus"
+        app:cb_color="#99CC00"
+        app:cb_pressedRingWidth="8dip" />
 
 
 </RelativeLayout>

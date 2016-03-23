@@ -15,7 +15,7 @@ import com.kizema.johnsnow.colornotes.helper.Constant;
 import com.kizema.johnsnow.colornotes.model.Note;
 
 public class NotesRecyclerViewController implements NoteItemTouchListener.OnNoteItemTouchInActionListener,
-        NotificationAdapter.OnNotifClickListener{
+        NotificationAdapter.OnNotifClickListener {
 
     public RecyclerView rvNotif;
     public NotificationAdapter notifAdap;
@@ -30,28 +30,28 @@ public class NotesRecyclerViewController implements NoteItemTouchListener.OnNote
         boolean isRecyclerViewStable();
     }
 
-    public void update(){
+    public void update() {
         notifAdap.update(Note.getAll());
     }
 
-    public NotesRecyclerViewController(BaseActivity activity, OnNoteRVInterectionCallback onNoteRVInterectionCallback){
+    public NotesRecyclerViewController(BaseActivity activity, OnNoteRVInterectionCallback onNoteRVInterectionCallback) {
         this.onNoteInterectionCallback = onNoteRVInterectionCallback;
         this.activity = activity;
 
         init();
     }
 
-    private void init(){
+    private void init() {
         rvNotif = (RecyclerView) activity.findViewById(R.id.rvNotif);
         chatFeedTouchListener = new NoteItemTouchListener(this);
 
         notifAdap = new NotificationAdapter(activity, Note.getAll());
         rvNotif.setAdapter(notifAdap);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false){
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false) {
             @Override
             public boolean canScrollVertically() {
-                if (!scrollEnabled){
+                if (!scrollEnabled) {
                     return false;
                 }
 
@@ -83,7 +83,12 @@ public class NotesRecyclerViewController implements NoteItemTouchListener.OnNote
     @Override
     public void onItemClicked(Note note, int pos) {
         //TODO this is called when we single click on Note item
-        Toast.makeText(activity, "Clicked : " + note.getName(), Toast.LENGTH_SHORT).show();
+        Intent addNote = new Intent(activity, AddActivity.class);
+        addNote.putExtra("isEdit", false);
+        addNote.putExtra("POS", pos);
+        addNote.putExtra("NOTE", note.getIdNumber());
+        activity.startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
+//        Toast.makeText(activity, "Clicked : " + note.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

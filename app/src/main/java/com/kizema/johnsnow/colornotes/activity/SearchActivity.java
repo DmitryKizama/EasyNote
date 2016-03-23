@@ -239,6 +239,7 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        UIHelper.hideKeyboard(SearchActivity.this);
         if (notesFrag.onActivityResult(requestCode, resultCode, data)){
             return;
         }

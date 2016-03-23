@@ -13,7 +13,7 @@ import com.kizema.johnsnow.colornotes.control.AppearDisappearControl;
 import com.kizema.johnsnow.colornotes.helper.UIHelper;
 import com.kizema.johnsnow.colornotes.model.Note;
 
-public class AddActivity extends BaseActivity implements BaseActivity.OnSoftKeyboardListener {
+public class AddActivity extends BaseActivity {
 
     public static final String POS = "POS";
 
@@ -45,7 +45,7 @@ public class AddActivity extends BaseActivity implements BaseActivity.OnSoftKeyb
         addBtnControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isEdit == true) {
+                if (isEdit) {
                     etNote.setEnabled(true);
                     UIHelper.showKeyboard(AddActivity.this, etNote);
                 } else {
@@ -115,18 +115,7 @@ public class AddActivity extends BaseActivity implements BaseActivity.OnSoftKeyb
     }
 
     @Override
-    public void onSoftKeyboardShown() {
-        btnAdd.setTranslationY(-UIHelper.getKeyboardHeight());
-    }
-
-    @Override
-    public void onSoftKeyboardHidden() {
-        btnAdd.setTranslationY(0);
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        removeOnSoftKeyboardListener(this);
     }
 }

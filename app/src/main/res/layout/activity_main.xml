@@ -12,13 +12,13 @@
         android:background="@color/abBack">
 
         <com.kizema.johnsnow.colornotes.appviews.AppImageView
-            android:id="@+id/ivSwitchView"
+            android:id="@+id/ivOkView"
             android:layout_width="@dimen/ab_icon_size_back"
             android:layout_height="@dimen/ab_icon_size_back"
             android:layout_centerVertical="true"
             android:scaleType="center"
 
-            android:src="@drawable/ic_view_switcher"
+            android:src="@drawable/ic_ok"
             app:drawableColor="@color/ABIcon"
             app:drawableStatePressed="@color/ABIconPressed" />
 
@@ -33,41 +33,160 @@
             android:textSize="18dp" />
 
         <com.kizema.johnsnow.colornotes.appviews.AppImageView
-            android:id="@+id/ivSearch"
+            android:id="@+id/ivCancelView"
             android:layout_width="@dimen/ab_icon_size_back"
             android:layout_height="@dimen/ab_icon_size_back"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:scaleType="center"
 
-            android:src="@drawable/ic_settings_icon"
-            app:drawableColor="@color/ABIcon"
-            app:drawableStatePressed="@color/ABIconPressed" />
-
-        <com.kizema.johnsnow.colornotes.appviews.AppImageView
-            android:id="@+id/ivSettings"
-            android:layout_width="@dimen/ab_icon_size_back"
-            android:layout_height="@dimen/ab_icon_size_back"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/ivSearch"
-
-            android:scaleType="center"
-
-            android:src="@drawable/ic_set_icon"
+            android:src="@drawable/ic_cross"
             app:drawableColor="@color/ABIcon"
             app:drawableStatePressed="@color/ABIconPressed" />
 
     </RelativeLayout>
 
-
-    <Button
-        android:id="@+id/addNote"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="Add Note" />
+        android:layout_below="@+id/abLayout"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <com.kizema.johnsnow.colornotes.appviews.AppLinearLayout
+            android:id="@+id/lvPickColors"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            app:drawableStatePressed="@color/ABIconPressed">
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_weight="1"
+                android:scaleType="center"
+
+                android:src="@drawable/ic_color_picker"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_weight="4"
+                android:text="Pick your colors label"
+                android:textSize="25sp"
+                app:textColorPressed="@color/ABIconPressed"
+                app:textColorState="@color/black" />
+
+        </com.kizema.johnsnow.colornotes.appviews.AppLinearLayout>
+
+        <com.kizema.johnsnow.colornotes.appviews.AppLinearLayout
+            android:id="@+id/lvRateUs"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_weight="1"
+                android:scaleType="center"
+
+                android:src="@drawable/ic_star_xxl"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="7dp"
+                android:layout_weight="4"
+                android:text="Rate us"
+                android:textSize="25sp"
+                app:textColorPressed="@color/ABIconPressed"
+                app:textColorState="@color/black" />
+
+        </com.kizema.johnsnow.colornotes.appviews.AppLinearLayout>
+
+        <com.kizema.johnsnow.colornotes.appviews.AppLinearLayout
+            android:id="@+id/lvAuthors"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_weight="1"
+                android:scaleType="center"
+
+                android:src="@drawable/ic_authors"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_weight="4"
+                android:text="Authors"
+                android:textSize="25sp"
+                app:textColorPressed="@color/ABIconPressed"
+                app:textColorState="@color/black" />
+
+        </com.kizema.johnsnow.colornotes.appviews.AppLinearLayout>
+
+        <com.kizema.johnsnow.colornotes.appviews.AppLinearLayout
+            android:id="@+id/lvClearAllNotes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_weight="1"
+                android:scaleType="center"
+
+
+                android:src="@drawable/ic_clear_icon"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_weight="4"
+                android:text="Clear all notes"
+                android:textSize="25sp"
+                app:textColorPressed="@color/ABIconPressed"
+                app:textColorState="@color/black" />
+
+        </com.kizema.johnsnow.colornotes.appviews.AppLinearLayout>
+
+
+    </LinearLayout>
 
     <!--<fragment-->
     <!--android:id="@+id/notesFrag"-->
@@ -76,12 +195,5 @@
     <!--android:layout_above="@+id/addNote"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent" />-->
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvNotif"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/addNote"
-        android:layout_below="@id/abLayout" />
 
 </RelativeLayout>

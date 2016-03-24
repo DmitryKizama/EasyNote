@@ -160,7 +160,8 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         ivSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            Intent settingIntent = new Intent(SearchActivity.this, SettingActivity.class);
+            startActivity(settingIntent);
             }
         });
 

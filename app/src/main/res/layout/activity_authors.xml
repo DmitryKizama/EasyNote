@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="beforeDescendants">
+
+    <RelativeLayout
+        android:id="@+id/abLayoutInAuthorsActivity"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/abBack">
+
+        <com.kizema.johnsnow.colornotes.appviews.AppImageView
+            android:id="@+id/ivBackInAuthorsActivity"
+            android:layout_width="@dimen/ab_icon_size_back"
+            android:layout_height="@dimen/ab_icon_size_back"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+
+            android:src="@drawable/ic_arrow_back_512"
+            app:backgroundStateColor="@color/abBack"
+
+            app:backgroundStatePressed="@color/abBackPressed"
+            app:drawableColor="@color/ABIcon"
+            app:drawableStatePressed="@color/ABIconPressed" />
+
+        <com.kizema.johnsnow.colornotes.appviews.AppTextView
+            android:id="@+id/tvAuthorsInAuthorsActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minWidth="100dp"
+            android:text="Authors"
+            android:textColor="@color/ABIcon"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/abLayoutInAuthorsActivity"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <com.kizema.johnsnow.colornotes.appviews.AppLinearLayout
+            android:id="@+id/lvProjectManager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            app:drawableStatePressed="@color/ABIconPressed">
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_weight="1"
+                android:scaleType="center"
+
+                android:src="@drawable/ic_authors"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_weight="4"
+                android:text="Project Manager"
+                android:textSize="25sp"
+                app:textColorPressed="@color/ABIconPressed"
+                app:textColorState="@color/black" />
+
+        </com.kizema.johnsnow.colornotes.appviews.AppLinearLayout>
+
+        <com.kizema.johnsnow.colornotes.appviews.AppTextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="right"
+            android:text="Anton Kizema"
+            android:layout_marginRight="20dp"
+            android:textSize="35sp"
+            app:textColorPressed="@color/ABIconPressed"
+            app:textColorState="@color/black"
+            android:layout_weight="1" />
+
+        <com.kizema.johnsnow.colornotes.appviews.AppLinearLayout
+            android:id="@+id/lvDeveloper"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            app:drawableStatePressed="@color/ABIconPressed">
+
+            <com.kizema.johnsnow.colornotes.appviews.AppImageView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ab_icon_size_back"
+                android:layout_weight="1"
+                android:scaleType="center"
+
+                android:src="@drawable/ic_authors"
+                app:drawableColor="@color/ABIcon"
+                app:drawableStatePressed="@color/ABIconPressed" />
+
+            <com.kizema.johnsnow.colornotes.appviews.AppTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_weight="4"
+                android:text="Developer"
+                android:textSize="25sp"
+                app:textColorPressed="@color/ABIconPressed"
+                app:textColorState="@color/black" />
+
+        </com.kizema.johnsnow.colornotes.appviews.AppLinearLayout>
+
+        <com.kizema.johnsnow.colornotes.appviews.AppTextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="right"
+            android:text="Dmitry Kizema"
+            android:layout_marginRight="20dp"
+            android:textSize="35sp"
+            app:textColorPressed="@color/ABIconPressed"
+            app:textColorState="@color/black"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

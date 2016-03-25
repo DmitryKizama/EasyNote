@@ -15,7 +15,7 @@ public class SettingActivity extends BaseActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_setting);
         initActionBar();
 
         lvPickColors = (LinearLayout) findViewById(R.id.lvPickColors);
@@ -40,7 +40,8 @@ public class SettingActivity extends BaseActivity {
         lvAuthors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent authorsIntent = new Intent(SettingActivity.this, AuthorsActivity.class);
+                startActivity(authorsIntent);
             }
         });
 

@@ -19,6 +19,9 @@
             android:scaleType="center"
 
             android:src="@drawable/ic_ok"
+            app:backgroundStateColor="@color/abBack"
+
+            app:backgroundStatePressed="@color/abBackPressed"
             app:drawableColor="@color/ABIcon"
             app:drawableStatePressed="@color/ABIconPressed" />
 
@@ -28,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="Colorful Notes"
+            android:text="Settings"
             android:textColor="@color/ABIcon"
             android:textSize="18dp" />
 
@@ -41,8 +44,11 @@
             android:scaleType="center"
 
             android:src="@drawable/ic_cross"
+            app:backgroundStateColor="@color/abBack"
+
+            app:backgroundStatePressed="@color/abBackPressed"
             app:drawableColor="@color/ABIcon"
-            app:drawableStatePressed="@color/ABIconPressed" />
+            app:drawableStatePressed="@color/ABIconPressed"/>
 
     </RelativeLayout>
 

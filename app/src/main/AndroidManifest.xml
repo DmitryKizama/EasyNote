@@ -26,6 +26,13 @@
             android:label="@string/app_name">
 
         </activity>
+
+        <activity
+            android:name=".activity.AuthorsActivity"
+            android:label="@string/app_name">
+
+        </activity>
+
         <activity
             android:name=".activity.AddActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"

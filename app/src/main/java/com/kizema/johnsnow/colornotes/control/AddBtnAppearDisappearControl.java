@@ -14,12 +14,12 @@ public class AddBtnAppearDisappearControl extends AppearDisappearControl {
 
     @Override
     public int getSecondSTateDrawableId() {
-        return R.drawable.ic_filter_shown;
+        return R.drawable.ic_no_pencil;
     }
 
     @Override
     public int getFirstStateDrawableId() {
-        return  R.drawable.ic_no_fileter;
+        return  R.drawable.ic_pencil;
     }
 
     @Override

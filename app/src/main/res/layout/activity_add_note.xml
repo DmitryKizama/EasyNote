@@ -13,13 +13,13 @@
         android:background="@color/abBack">
 
         <com.kizema.johnsnow.colornotes.appviews.AppImageView
-            android:id="@+id/ivCancelViewInAddActivity"
+            android:id="@+id/ivOkViewInAddActivity"
             android:layout_width="@dimen/ab_icon_size_back"
             android:layout_height="@dimen/ab_icon_size_back"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:scaleType="center"
-            android:src="@drawable/ic_cross"
+            android:src="@drawable/ic_ok"
             app:backgroundStateColor="@color/abBack"
 
             app:backgroundStatePressed="@color/abBackPressed"
@@ -42,23 +42,43 @@
 
     </RelativeLayout>
 
+    <com.kizema.johnsnow.colornotes.appviews.AppTextView
+        android:id="@+id/atvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/abLayoutInAddActivity"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Name of the Note"
+        android:textSize="25sp" />
+
     <EditText
         android:id="@+id/etNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/abLayoutInAddActivity" />
+        android:layout_below="@+id/atvName" />
+
+    <com.kizema.johnsnow.colornotes.appviews.AppTextView
+        android:id="@+id/atvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etNote"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Description"
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/etNoteDescription"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/etNote"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/atvDescription"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp" />
 
     <com.kizema.johnsnow.colornotes.appviews.AppCircleImageView
         android:id="@+id/btnAdd"
@@ -68,7 +88,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/ic_plus"
+        android:src="@drawable/ic_no_pencil"
         app:cb_color="#99CC00"
         app:cb_pressedRingWidth="8dip" />
 

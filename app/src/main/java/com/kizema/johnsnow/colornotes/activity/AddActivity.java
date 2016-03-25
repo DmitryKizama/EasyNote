@@ -21,7 +21,7 @@ public class AddActivity extends BaseActivity {
     public static final int REQUES_CODE_FOR_UPDATE = 2;
 
     private ImageView btnAdd;
-    private EditText etNote;
+    private EditText etNote, etDescription;
     private int position;
     private Note note;
 
@@ -34,8 +34,12 @@ public class AddActivity extends BaseActivity {
         setContentView(R.layout.activity_add_note);
 
         etNote = (EditText) findViewById(R.id.etNote);
+        etDescription = (EditText) findViewById(R.id.etNoteDescription);
+
         if (note != null) {
             etNote.setText(note.getName());
+//            TODO
+//            etDescription.setText(note.getDescription());
         }
         btnAdd = (ImageView) findViewById(R.id.btnAdd);
         addBtnControl = new AddBtnAppearDisappearControl(btnAdd);
@@ -47,9 +51,11 @@ public class AddActivity extends BaseActivity {
             public void onClick(View v) {
                 if (isEdit) {
                     etNote.setEnabled(true);
+                    etDescription.setEnabled(true);
                     UIHelper.showKeyboard(AddActivity.this, etNote);
                 } else {
                     etNote.setEnabled(false);
+                    etDescription.setEnabled(false);
                     UIHelper.hideKeyboard(AddActivity.this);
                 }
                 isEdit = !isEdit;
@@ -58,24 +64,33 @@ public class AddActivity extends BaseActivity {
         });
 
         initActionBar();
+
+        if (!isEdit){
+            etNote.setEnabled(false);
+            etDescription.setEnabled(false);
+        } else{
+            etNote.setEnabled(true);
+            etDescription.setEnabled(true);
+        }
     }
 
     private void initActionBar() {
-        View ivCancelView = findViewById(R.id.ivCancelViewInAddActivity);
+        View ivOkView = findViewById(R.id.ivOkViewInAddActivity);
         View ivSettings = findViewById(R.id.ivSettingsInAddActivity);
 
-        ivCancelView.setOnClickListener(new View.OnClickListener() {
+        ivOkView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_CANCELED);
-                finish();
+                onAddClick();
+
             }
         });
 
         ivSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent settingIntent = new Intent(AddActivity.this, SettingActivity.class);
+                startActivity(settingIntent);
             }
         });
 
@@ -98,7 +113,8 @@ public class AddActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        onAddClick();
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     private void getIntentInfo() {

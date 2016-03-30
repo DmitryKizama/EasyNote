@@ -18,7 +18,6 @@ import com.kizema.johnsnow.colornotes.appviews.DualProgressBar;
 import com.kizema.johnsnow.colornotes.control.AppearDisappearControl;
 import com.kizema.johnsnow.colornotes.control.FilterAppearDisappearControl;
 import com.kizema.johnsnow.colornotes.control.SearchAppearDisappearControl;
-import com.kizema.johnsnow.colornotes.helper.Constant;
 import com.kizema.johnsnow.colornotes.helper.UIHelper;
 import com.kizema.johnsnow.colornotes.model.Note;
 import com.kizema.johnsnow.colornotes.model.UserColor;
@@ -246,7 +245,7 @@ public class SearchActivity extends BaseActivity implements DualProgressBar.OnDu
         }
 
         if (resultCode == RESULT_OK) {
-            if (requestCode == Constant.REQUES_CODE_ADD_NOTE) {
+            if (requestCode == AddActivity.REQUES_CODE_ADD_NOTE) {
                 int id = data.getIntExtra("NOTE", 0);
                 Note note = Note.findbyId(id);
                 notesFrag.notifAdap.addBottom(note);

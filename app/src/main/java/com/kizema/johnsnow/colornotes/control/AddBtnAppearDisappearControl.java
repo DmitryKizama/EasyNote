@@ -14,12 +14,12 @@ public class AddBtnAppearDisappearControl extends AppearDisappearControl {
 
     @Override
     public int getSecondSTateDrawableId() {
-        return R.drawable.ic_no_pencil;
+        return R.drawable.ic_pencil;
     }
 
     @Override
     public int getFirstStateDrawableId() {
-        return  R.drawable.ic_pencil;
+        return  R.drawable.ic_no_pencil;
     }
 
     @Override
@@ -31,4 +31,11 @@ public class AddBtnAppearDisappearControl extends AppearDisappearControl {
     public int getPressedColor() {
         return getColor(R.color.ABIconPressed);
     }
+
+    @Override
+    public void setFirstState(boolean f) {
+        super.setFirstState(f);
+    }
+
+
 }

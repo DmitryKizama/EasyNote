@@ -3,17 +3,23 @@ package com.kizema.johnsnow.colornotes.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.kizema.johnsnow.colornotes.R;
+import com.kizema.johnsnow.colornotes.adapters.ColorsAdapter;
 import com.kizema.johnsnow.colornotes.control.AddBtnAppearDisappearControl;
 import com.kizema.johnsnow.colornotes.control.AppearDisappearControl;
 import com.kizema.johnsnow.colornotes.helper.UIHelper;
 import com.kizema.johnsnow.colornotes.model.Note;
+import com.kizema.johnsnow.colornotes.model.UserColor;
 
-public class AddActivity extends BaseActivity {
+import java.util.List;
+
+public class AddActivity extends BaseActivity implements ColorsAdapter.OnColorCLick {
 
     public static final String POS = "POS";
 
@@ -24,6 +30,8 @@ public class AddActivity extends BaseActivity {
     private EditText etNote, etDescription;
     private int position;
     private Note note;
+    private UserColor color;
+    private RecyclerView rvColorsInAddActivity;
 
     private AppearDisappearControl addBtnControl;
     private boolean isEdit = true;
@@ -36,11 +44,6 @@ public class AddActivity extends BaseActivity {
         etNote = (EditText) findViewById(R.id.etNote);
         etDescription = (EditText) findViewById(R.id.etNoteDescription);
 
-        if (note != null) {
-            etNote.setText(note.getName());
-//            TODO
-//            etDescription.setText(note.getDescription());
-        }
         btnAdd = (ImageView) findViewById(R.id.btnAdd);
         addBtnControl = new AddBtnAppearDisappearControl(btnAdd);
 
@@ -52,11 +55,11 @@ public class AddActivity extends BaseActivity {
                 if (isEdit) {
                     etNote.setEnabled(true);
                     etDescription.setEnabled(true);
-                    UIHelper.showKeyboard(AddActivity.this, etNote);
+//                    UIHelper.showKeyboard(AddActivity.this, etNote);
                 } else {
                     etNote.setEnabled(false);
                     etDescription.setEnabled(false);
-                    UIHelper.hideKeyboard(AddActivity.this);
+//                    UIHelper.hideKeyboard(AddActivity.this);
                 }
                 isEdit = !isEdit;
 
@@ -64,13 +67,28 @@ public class AddActivity extends BaseActivity {
         });
 
         initActionBar();
+        initColorPicker();
+        initStartSettings();
 
-        if (!isEdit){
+
+    }
+
+    private void initStartSettings(){
+        if (!isEdit) {
             etNote.setEnabled(false);
             etDescription.setEnabled(false);
-        } else{
+            isEdit = true;
+        } else {
+            addBtnControl.setFirstState(false);
             etNote.setEnabled(true);
             etDescription.setEnabled(true);
+            isEdit = false;
+        }
+
+        if (note != null) {
+            etNote.setText(note.getName());
+            etDescription.setText(note.getDescription());
+//            rvColorsInAddActivity.
         }
     }
 
@@ -96,11 +114,36 @@ public class AddActivity extends BaseActivity {
 
     }
 
+    private void initColorPicker(){
+        rvColorsInAddActivity = (RecyclerView) findViewById(R.id.rvColorsInAddActivity);
+
+        List<UserColor> userColors = UserColor.getAllUsers();
+        ColorsAdapter adapter = new ColorsAdapter(this, userColors);
+        adapter.OnColorCLick(this);
+        rvColorsInAddActivity.setAdapter(adapter);
+
+        int w = UIHelper.getW();
+        int cols = w / UIHelper.getPixel(50);
+        int padd = UIHelper.getW() - cols*UIHelper.getPixel(50);
+
+        int amount = userColors.size();
+        int rows = amount / cols + (amount % cols > 0 ? 1 : 0);
+        int rvColorHeight = rows * UIHelper.getPixel(50);
+
+        rvColorsInAddActivity.getLayoutParams().height = rvColorHeight;
+        GridLayoutManager mLayoutManager = new GridLayoutManager(this, cols, GridLayoutManager.VERTICAL, false);
+        rvColorsInAddActivity.setLayoutManager(mLayoutManager);
+        rvColorsInAddActivity.setHasFixedSize(true);
+        rvColorsInAddActivity.setPadding(padd / 2, 0, padd / 2, 0);
+    }
+
     private void onAddClick() {
         if (note == null) {
-            note = new Note(etNote.getText().toString());
+            note = new Note(etNote.getText().toString(), etDescription.getText().toString(), color);
         } else {
             note.setName(etNote.getText().toString());
+            note.setDescription(etDescription.getText().toString());
+            note.setColor(color);
             note.save();
         }
         Intent intent = new Intent();
@@ -109,6 +152,11 @@ public class AddActivity extends BaseActivity {
         UIHelper.hideKeyboard(this);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void OnColorPicked(UserColor color) {
+        this.color = color;
     }
 
     @Override
@@ -134,4 +182,6 @@ public class AddActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 }

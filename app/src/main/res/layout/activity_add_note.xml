@@ -18,6 +18,7 @@
             android:layout_height="@dimen/ab_icon_size_back"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+
             android:scaleType="center"
             android:src="@drawable/ic_ok"
             app:backgroundStateColor="@color/abBack"
@@ -79,6 +80,30 @@
         android:layout_below="@+id/atvDescription"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp" />
+
+    <com.kizema.johnsnow.colornotes.appviews.AppTextView
+        android:id="@+id/rvChoseColors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/etNoteDescription"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:maxLines="1"
+        android:minWidth="100dp"
+        android:text="Choose color:"
+        android:textColor="@color/ABIcon"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvColorsInAddActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rvChoseColors">
+
+    </android.support.v7.widget.RecyclerView>
 
     <com.kizema.johnsnow.colornotes.appviews.AppCircleImageView
         android:id="@+id/btnAdd"

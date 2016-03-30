@@ -11,11 +11,14 @@ import java.util.List;
 public class Note extends Model {
 
     public static final String NOTE = "NOTE";
+    public static final String DESCRIPTION = "DESCRIPTION";
     public static final String ID = "id_for_note";
+    public static final String COLOR = "COLOR";
     public static int idCounter;
+
     static {
         Note n = new Select().from(Note.class).orderBy(ID + " DESC").executeSingle();
-        if (n != null){
+        if (n != null) {
             idCounter = n.idNumber;
         } else {
             idCounter = 0;
@@ -25,6 +28,12 @@ public class Note extends Model {
 
     @Column(name = NOTE)
     private String name;
+
+    @Column(name = DESCRIPTION)
+    private String description;
+
+    @Column(name = COLOR)
+    private UserColor color;
 
     @Column(name = ID)
     private int idNumber;
@@ -45,13 +54,32 @@ public class Note extends Model {
         this.idNumber = idNumber;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setColor(UserColor color) {
+        this.color = color;
+    }
+
+    public UserColor getColor() {
+        return color;
+    }
+
+
     public Note() {
         super();
     }
 
-    public Note(String name) {
+    public Note(String name, String description, UserColor userColor) {
         super();
         this.name = name;
+        this.description = description;
+        this.color = userColor;
         this.idNumber = ++idCounter;
         save();
     }

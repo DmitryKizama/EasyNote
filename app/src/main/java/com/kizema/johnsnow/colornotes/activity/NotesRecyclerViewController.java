@@ -6,12 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.kizema.johnsnow.colornotes.R;
 import com.kizema.johnsnow.colornotes.adapters.NotificationAdapter;
 import com.kizema.johnsnow.colornotes.control.NoteItemTouchListener;
-import com.kizema.johnsnow.colornotes.helper.Constant;
 import com.kizema.johnsnow.colornotes.model.Note;
 
 public class NotesRecyclerViewController implements NoteItemTouchListener.OnNoteItemTouchInActionListener,
@@ -87,7 +85,7 @@ public class NotesRecyclerViewController implements NoteItemTouchListener.OnNote
         addNote.putExtra("isEdit", false);
         addNote.putExtra("POS", pos);
         addNote.putExtra("NOTE", note.getIdNumber());
-        activity.startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
+        activity.startActivityForResult(addNote, AddActivity.REQUES_CODE_FOR_UPDATE);
 //        Toast.makeText(activity, "Clicked : " + note.getName(), Toast.LENGTH_SHORT).show();
     }
 
@@ -102,7 +100,7 @@ public class NotesRecyclerViewController implements NoteItemTouchListener.OnNote
         Intent addNote = new Intent(activity, AddActivity.class);
         addNote.putExtra("POS", pos);
         addNote.putExtra("NOTE", note.getIdNumber());
-        activity.startActivityForResult(addNote, Constant.REQUES_CODE_FOR_UPDATE);
+        activity.startActivityForResult(addNote, AddActivity.REQUES_CODE_FOR_UPDATE);
     }
 
     /**
@@ -110,7 +108,7 @@ public class NotesRecyclerViewController implements NoteItemTouchListener.OnNote
      */
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == Constant.REQUES_CODE_FOR_UPDATE) {
+        if (requestCode == AddActivity.REQUES_CODE_FOR_UPDATE) {
             if (resultCode == Activity.RESULT_OK) {
                 int position = data.getIntExtra("POS", 0);
                 int id = data.getIntExtra("NOTE", 0);
